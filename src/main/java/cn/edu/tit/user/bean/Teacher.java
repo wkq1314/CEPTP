@@ -1,6 +1,5 @@
 package cn.edu.tit.user.bean;
 
-import cn.edu.tit.role.bean.Role;
 
 public class Teacher {
 	private String staff_id;  //教师工号

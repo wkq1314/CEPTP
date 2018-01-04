@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.edu.tit.role.Idao.IRoleDao">
+	<!-- Role_user结果集映射 -->
+	<resultMap type="cn.edu.tit.role.bean.Role" id="role_user">
+		<id column="role_id" property="role_id" />
+		<collection property="teacherList"  resultMap="cn.edu.tit.user.Idao.IUserDao.teacher" />
+	</resultMap>
+	
+	<!-- 通过角色id查询某角色的用户信息 -->
+	<select id="findRoleById" parameterType="java.lang.String" resultMap="role_user">
+		select * from ceptp_role_user ru,ceptp_staff staff where ru.user_id = staff.staff_id and ru.delete_flg = '0' and ru.role_id = #{role_id};
+	</select>
+	
+	<!-- 通过父角色id查找其已有子角色数量 -->
+	<select id="findChildRoleNumById" parameterType="java.lang.String" resultType="int">
+		select count(*) from ceptp_role where create_user = #{create_user};
+	</select>
+	
+	<!-- 向数据库中保存role -->
+	<insert id="addRole" parameterType="java.util.HashMap">
+		insert into ceptp_role(role_id,role_name,create_user,create_time,update_user,update_time,delete_flg)
+		values (#{role_id},#{role_name},#{create_user},#{create_time},#{update_user},#{update_time},0);
+	</insert>
+	
+	<!-- 向数据库中保存role-privilege关系 -->
+	<insert id="addRolePrivilege" parameterType="java.util.HashMap">
+		insert into ceptp_role_privilege(role_id,privilege_id,delete_flg,create_user,create_time,update_user,update_time)
+		values (#{role_id},#{privilege_id},0,#{create_user},#{create_time},#{update_user},#{update_time});
+	</insert>
+</mapper>

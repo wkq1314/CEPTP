@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.edu.tit.user.Idao.IUserDao">
+	<!-- Role_user结果集映射 -->
+	<resultMap type="cn.edu.tit.user.bean.Teacher" id="teacher">
+		<id column="staff_id" property="staff_id" />
+		<result column="staff_name" property="staff_name" />
+		<result column="sex" property="sex" />
+		<result column="degree_id" property="degree_id" />
+		<result column="pro_title_id" property="pro_title_id" />
+		<result column="college_id" property="college_id" />
+		<result column="dept_id" property="dept_id" />
+		<result column="pro_id" property="pro_id" />
+		<result column="email" property="email" />
+		<result column="is_dimission" property="is_dimission" />
+		<result column="phone" property="phone" />
+		<result column="mobile" property="mobile" />
+	</resultMap>
+	
+	<!-- 通过id查询某角色的信息 -->
+	<select id="findTeaById" parameterType="java.lang.String" resultMap="teacher">
+		select * from ceptp_staff where staff_id = #{staff_id} and delete_flg = 0;
+		
+	</select>
+</mapper>
