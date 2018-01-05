@@ -73,6 +73,25 @@ public class RoleServiceImp implements IRoleService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	@Override
+	public void addRolePrivilege(String role_id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void delRolePrivilege(String role_id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public List<Role> schAllChildRole(String role_id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 	/**
 	 * 私有方法
 	 * 将传入的数字作为脚标获得26个英文字母中对应的字母

@@ -30,6 +30,19 @@ public interface IRoleService {
 	 * @param role_id
 	 */
 	public void editRole(String role_id);
+	/**
+	 * 添加角色权限
+	 * @param role_id
+	 * 被修改角色id
+	 */
+	public void addRolePrivilege(String role_id);
+	
+	/**
+	 * 删除角色权限
+	 * @param role_id
+	 * 被修改角色id
+	 */
+	public void delRolePrivilege(String role_id);
 	
 	/**
 	 * 为角色添加用户
@@ -43,4 +56,13 @@ public interface IRoleService {
 	 * @return：查询到的角色列表
 	 */
 	public List<Role> schAllRole();
+	
+	/**
+	 * 查询某角色的所有字角色
+	 * @param role_id
+	 * 父角色id
+	 * @return
+	 * 自角色列表
+	 */
+	public List<Role> schAllChildRole(String role_id);
 }
