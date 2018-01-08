@@ -22,6 +22,7 @@ public class Text {
 //  private ApplicationContext ac = null;  
     @Resource  
     private IRoleService roleService ;  
+    
   
 //  @Before  
 //  public void before() {  
@@ -40,7 +41,7 @@ public class Text {
         	logger.info(t.getStaff_id());  
         }
     }  
-    @Test 
+     
     public void addRoletest(){
     	Role role = new Role();
     	role.setCreate_user("AB");
@@ -51,5 +52,20 @@ public class Text {
 //    	p.add(3);
     	role.setPrivilegeIdList(p);
     	roleService.addRole(role);
+    }
+    
+    public void addRolePrivilegeText(){
+    	List<Integer> privilegeIdList =  new ArrayList<>();
+    	privilegeIdList.add(2);
+//    	p.add(2);
+    	roleService.addRolePrivilege("Ac", "A", privilegeIdList);
+    }
+    @Test
+    public void getchildRid(){
+    	List<Integer> privilegeIdList =  new ArrayList<>();
+    	privilegeIdList.add(1);
+    	roleService.delRolePrivilege("AB", privilegeIdList);
+    		
+    	
     }
 }

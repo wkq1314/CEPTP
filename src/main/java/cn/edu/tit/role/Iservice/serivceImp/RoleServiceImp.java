@@ -21,7 +21,6 @@ public class RoleServiceImp implements IRoleService {
 	
 	@Autowired
 	private IRoleDao roleDao;
-	public static final String time ="YYYY-MM-dd HH:mm:ss";
 
 	@Override
 	public Role schRoleInfo(String role_id) {
@@ -42,9 +41,8 @@ public class RoleServiceImp implements IRoleService {
 		String role_id = create_user+name;   //获得id
 		String role_name = role.getRole_name();  //获得角色名
 		String update_user = create_user;  //更新人
-		SimpleDateFormat sdf = new SimpleDateFormat(time);
-		String create_time = sdf.format(new Date());  //获得创建时间
-		String update_time = create_time; //获得更新时间
+		Date create_time = new Date(); //获得创建时间
+		Date update_time = create_time; //获得更新时间
 		role.setRole_id(role_id);  //封装为完整的Role对象
 		/*
 		 * 调用持久层方法存储role
@@ -58,36 +56,60 @@ public class RoleServiceImp implements IRoleService {
 
 	@Override
 	public void editRole(String role_id) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
 	@Override
-	public void addUserForRole(String role_id, List<String> staff_id) {
-		// TODO Auto-generated method stub
-		
+	public void addUserForRole(String role_id,String create_user, List<String> staff_idList) {
+		//子角色绑定选定用户
+		String update_user = create_user; 
+		Date create_time = new Date();
+		Date update_time = create_time;
+		for(String staffid : staff_idList ){
+			roleDao.addUserForRole(role_id, staffid, create_user, create_time, update_user, update_time);
+		}
 	}
 
 	@Override
 	public List<Role> schAllRole() {
-		// TODO Auto-generated method stub
+		// 查询所有角色并返回
 		return null;
 	}
 	
 	@Override
-	public void addRolePrivilege(String role_id) {
-		// TODO Auto-generated method stub
+	public void addRolePrivilege(String role_id,String create_user,List<Integer> privilegeIdList) {
+		//获取修改时间,和更新相关
+		Date create_time = new Date();  //获得创建时间
+		Date update_time = create_time; //获得更新时间
+		String update_user = create_user;
+		//为选中的子角色增加权限
+		for(int privilegeId : privilegeIdList){
+			roleDao.addRolePrivilege(role_id, privilegeId, create_user, create_time, update_user, update_time);
+		}
 		
 	}
 
 	@Override
-	public void delRolePrivilege(String role_id) {
-		// TODO Auto-generated method stub
-		
+	public void delRolePrivilege(String role_id, List<Integer> privilegeIdList) {
+		// 获得被修改角色id及其所有子角色id
+		List<String> roleIdList = roleDao.getAllChildRoleId(role_id);
+		// 删除获得的所有角色id的相关权限
+		for(String roleid : roleIdList){
+			for(int privilege_id : privilegeIdList){
+				roleDao.delRolePrivilegeById(roleid, privilege_id);
+			}
+		}
 	}
 
 	@Override
 	public List<Role> schAllChildRole(String role_id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Integer> schPrivilegeById(String role_id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -213,5 +235,7 @@ public class RoleServiceImp implements IRoleService {
 		}
 		return name;
 	}
+
+	
 
 }

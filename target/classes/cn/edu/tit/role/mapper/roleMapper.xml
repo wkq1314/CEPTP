@@ -9,6 +9,7 @@
 		<collection property="teacherList"  resultMap="cn.edu.tit.user.Idao.IUserDao.teacher" />
 	</resultMap>
 	
+	
 	<!-- 通过角色id查询某角色的用户信息 -->
 	<select id="findRoleById" parameterType="java.lang.String" resultMap="role_user">
 		select * from ceptp_role_user ru,ceptp_staff staff where ru.user_id = staff.staff_id and ru.delete_flg = '0' and ru.role_id = #{role_id};
@@ -30,4 +31,25 @@
 		insert into ceptp_role_privilege(role_id,privilege_id,delete_flg,create_user,create_time,update_user,update_time)
 		values (#{role_id},#{privilege_id},0,#{create_user},#{create_time},#{update_user},#{update_time});
 	</insert>
+	
+	<!-- 获得所有子角色id -->
+	<select id="getAllChildRoleId" parameterType="java.lang.String" resultType="java.lang.String">
+		select role_id from ceptp_role where role_id like CONCAT(#{role_id}, '%');
+	</select>
+	
+	<!-- 根据id删除权限(逻辑删除) -->
+	<update id="delRolePrivilegeById">
+		update ceptp_role_privilege set delete_flg = 1 where role_id = #{role_id} and privilege_id = #{privilege_id};
+	</update>
+	
+	<!-- 为角色绑定用户 -->
+	<insert id="addUserForRole" parameterType="java.util.HashMap">
+		insert into ceptp_role_user(role_id,user_id,delete_flg,create_user,create_time,update_user,update_time)
+		values (#{role_id},#{user_id},0,#{create_user},#{create_time},#{update_user},#{update_time});
+	</insert>
+	
+	<!-- 查询所有角色 -->
+	<select id="findAllRole" resultType="cn.edu.tit.role.bean.Role">
+		select * from ceptp_role 
+	</select>
 </mapper>

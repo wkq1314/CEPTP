@@ -34,22 +34,27 @@ public interface IRoleService {
 	 * 添加角色权限
 	 * @param role_id
 	 * 被修改角色id
+	 * @param create_user
+	 * 被修改角色的父角色id
+	 * @param privilegeIdList
+	 * 增加的权限列表
 	 */
-	public void addRolePrivilege(String role_id);
+	public void addRolePrivilege(String role_id,String create_user,List<Integer> privilegeIdList);
 	
 	/**
 	 * 删除角色权限
 	 * @param role_id
 	 * 被修改角色id
 	 */
-	public void delRolePrivilege(String role_id);
+	public void delRolePrivilege(String role_id,List<Integer> privilegeIdList);
 	
 	/**
 	 * 为角色添加用户
 	 * @param role_id：角色id
 	 * @param staff_id：添加的用户id列表
+	 * @param create_user 父角色id
 	 */
-	public void addUserForRole(String role_id,List<String> staff_id);
+	public void addUserForRole(String role_id,String create_user,List<String> staff_id);
 	
 	/**
 	 * 查询所有角色
@@ -65,4 +70,11 @@ public interface IRoleService {
 	 * 自角色列表
 	 */
 	public List<Role> schAllChildRole(String role_id);
+	
+	/**
+	 * 查询某角色的所有权限
+	 * @param role_id
+	 * @return
+	 */
+	public List<Integer> schPrivilegeById(String role_id);
 }
