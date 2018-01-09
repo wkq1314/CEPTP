@@ -41,10 +41,11 @@ public class Text {
         	logger.info(t.getStaff_id());  
         }
     }  
-     
+    @Test
     public void addRoletest(){
     	Role role = new Role();
-    	role.setCreate_user("AB");
+    	role.setCreate_user("152056138");
+    	role.setParent_role_id("C");
     	role.setRole_name("hello");
     	List<Integer> p =  new ArrayList<>();
     	p.add(1);
@@ -58,13 +59,13 @@ public class Text {
     	List<Integer> privilegeIdList =  new ArrayList<>();
     	privilegeIdList.add(2);
 //    	p.add(2);
-    	roleService.addRolePrivilege("Ac", "A", privilegeIdList);
+    	//roleService.addRolePrivilege("Ac", "A", privilegeIdList);
     }
-    @Test
+    
     public void getchildRid(){
     	List<Integer> privilegeIdList =  new ArrayList<>();
     	privilegeIdList.add(1);
-    	roleService.delRolePrivilege("AB", privilegeIdList);
+    	//roleService.delRolePrivilege("AB", privilegeIdList);
     		
     	
     }

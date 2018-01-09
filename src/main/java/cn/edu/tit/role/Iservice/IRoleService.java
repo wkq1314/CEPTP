@@ -28,25 +28,18 @@ public interface IRoleService {
 	/**
 	 * 修改角色信息
 	 * @param role_id
-	 */
-	public void editRole(String role_id);
-	/**
-	 * 添加角色权限
-	 * @param role_id
 	 * 被修改角色id
+	 * @param role_name
+	 * 被修改角色名
 	 * @param create_user
-	 * 被修改角色的父角色id
-	 * @param privilegeIdList
-	 * 增加的权限列表
+	 * 修改人工号
+	 * @param old_privilegeIdList
+	 * 被修改角色原权限列表
+	 * @param new_privilegeIdList
+	 * 被修改角色修改后的权限列表
 	 */
-	public void addRolePrivilege(String role_id,String create_user,List<Integer> privilegeIdList);
+	public void editRole(String role_id,String role_name,String create_user,List<Integer>old_privilegeIdList,List<Integer>new_privilegeIdList);
 	
-	/**
-	 * 删除角色权限
-	 * @param role_id
-	 * 被修改角色id
-	 */
-	public void delRolePrivilege(String role_id,List<Integer> privilegeIdList);
 	
 	/**
 	 * 为角色添加用户

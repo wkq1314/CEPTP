@@ -12,24 +12,24 @@
 	
 	<!-- 通过角色id查询某角色的用户信息 -->
 	<select id="findRoleById" parameterType="java.lang.String" resultMap="role_user">
-		select * from ceptp_role_user ru,ceptp_staff staff where ru.user_id = staff.staff_id and ru.delete_flg = '0' and ru.role_id = #{role_id};
+		select * from ceptp_role_user ru,ceptp_staff staff where ru.user_id = staff.staff_id and ru.role_id = #{role_id};
 	</select>
 	
 	<!-- 通过父角色id查找其已有子角色数量 -->
 	<select id="findChildRoleNumById" parameterType="java.lang.String" resultType="int">
-		select count(*) from ceptp_role where create_user = #{create_user};
+		select count(*) from ceptp_role where parent_role_id = #{parent_role_id};
 	</select>
 	
 	<!-- 向数据库中保存role -->
 	<insert id="addRole" parameterType="java.util.HashMap">
-		insert into ceptp_role(role_id,role_name,create_user,create_time,update_user,update_time,delete_flg)
-		values (#{role_id},#{role_name},#{create_user},#{create_time},#{update_user},#{update_time},0);
+		insert into ceptp_role(role_id,role_name,parent_role_id,create_user,create_time,update_user,update_time,delete_flg)
+		values (#{role_id},#{role_name},#{parent_role_id},#{create_user},now(),#{create_user},now(),0);
 	</insert>
 	
 	<!-- 向数据库中保存role-privilege关系 -->
 	<insert id="addRolePrivilege" parameterType="java.util.HashMap">
-		insert into ceptp_role_privilege(role_id,privilege_id,delete_flg,create_user,create_time,update_user,update_time)
-		values (#{role_id},#{privilege_id},0,#{create_user},#{create_time},#{update_user},#{update_time});
+		insert into ceptp_role_privilege(role_id,privilege_id,create_user,create_time,update_user,update_time)
+		values (#{role_id},#{privilege_id},#{create_user},now(),#{create_user},now());
 	</insert>
 	
 	<!-- 获得所有子角色id -->
@@ -44,8 +44,8 @@
 	
 	<!-- 为角色绑定用户 -->
 	<insert id="addUserForRole" parameterType="java.util.HashMap">
-		insert into ceptp_role_user(role_id,user_id,delete_flg,create_user,create_time,update_user,update_time)
-		values (#{role_id},#{user_id},0,#{create_user},#{create_time},#{update_user},#{update_time});
+		insert into ceptp_role_user(role_id,user_id,create_user,create_time,update_user,update_time)
+		values (#{role_id},#{user_id},#{create_user},now(),#{create_user},now());
 	</insert>
 	
 	<!-- 查询所有角色 -->

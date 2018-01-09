@@ -10,10 +10,17 @@ public class Role {
 	private String role_id;  //角色id
 	private List<Integer> privilegeIdList; //权限id
 	private String role_name;  //角色名称
-	private String create_user;  //父角色id
+	private String parent_role_id;  //父角色id
+	private String create_user;  //创建人id
 	private List<Teacher> teacherList;  //角色对应的用户 
 	
 	//setter-getter
+	public String getParent_role_id() {
+		return parent_role_id;
+	}
+	public void setParent_role_id(String parent_role_id) {
+		this.parent_role_id = parent_role_id;
+	}
 	public String getRole_id() {
 		return role_id;
 	}

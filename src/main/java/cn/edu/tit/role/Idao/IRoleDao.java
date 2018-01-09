@@ -24,12 +24,12 @@ public interface IRoleDao {
 	
 	/**
 	 * 通过父角色id查找其已有子角色数量
-	 * @param role_id
+	 * @param parentRoleId
 	 * 父角色id
 	 * @return
 	 * 已有子角色数量
 	 */
-	public int findChildRoleNumById(String role_id);
+	public int findChildRoleNumById(String parentRoleId);
 	
 	/**
 	 * 向数据库中保存role
@@ -37,8 +37,7 @@ public interface IRoleDao {
 	 * 得到的role对象数据
 	 */
 	public void addRole(@Param("role_id")String role_id,@Param("role_name")String role_name,
-			@Param("create_user")String create_user,@Param("create_time")Date create_time,
-			@Param("update_user")String update_user,@Param("update_time")Date update_time);
+			@Param("parent_role_id")String parent_role_id,@Param("create_user")String create_user);
 	
 	/**
 	 * 向数据库中保存role-privilege关系
@@ -48,8 +47,7 @@ public interface IRoleDao {
 	 * 权限id
 	 */
 	public void addRolePrivilege(@Param("role_id")String role_id,@Param("privilege_id")int privilege_id,
-			@Param("create_user")String create_user,@Param("create_time")Date create_time,
-			@Param("update_user")String update_user,@Param("update_time")Date update_time);
+			@Param("create_user")String create_user);
 	
 	/**
 	 * 获得所有子角色的id
@@ -73,8 +71,7 @@ public interface IRoleDao {
 	 * 添加的用户id
 	 */
 	public void addUserForRole(@Param("role_id")String role_id,@Param("user_id")String user_id,
-			@Param("create_user")String create_user,@Param("create_time")Date create_time,
-			@Param("update_user")String update_user,@Param("update_time")Date update_time);
+			@Param("create_user")String create_user);
 	
 	/**
 	 * 查询所有角色
