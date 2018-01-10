@@ -4,8 +4,10 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
+import org.junit.runners.Parameterized.Parameters;
 import org.springframework.stereotype.Component;
 
+import cn.edu.tit.role.bean.Privilege;
 import cn.edu.tit.role.bean.Role;
 
 /**
@@ -38,6 +40,18 @@ public interface IRoleDao {
 	 */
 	public void addRole(@Param("role_id")String role_id,@Param("role_name")String role_name,
 			@Param("parent_role_id")String parent_role_id,@Param("create_user")String create_user);
+
+	/**
+	 * 修改角色名
+	 * @param role_id
+	 * 被修改角色id
+	 * @param roleName
+	 * 被修改的新角色名
+	 * @param updateUser
+	 * 修改人id
+	 */
+	public void updateRoleName(@Param("role_id")String role_id,@Param("role_name")String roleName,
+			@Param("update_user")String updateUser);
 	
 	/**
 	 * 向数据库中保存role-privilege关系
@@ -50,9 +64,9 @@ public interface IRoleDao {
 			@Param("create_user")String create_user);
 	
 	/**
-	 * 获得所有子角色的id
+	 * 获得被修改角色及其所有子角色的id
 	 * @param role_id
-	 * 父角色id
+	 * 被修改角色id
 	 */
 	public List<String> getAllChildRoleId(String role_id);
 	
@@ -72,10 +86,41 @@ public interface IRoleDao {
 	 */
 	public void addUserForRole(@Param("role_id")String role_id,@Param("user_id")String user_id,
 			@Param("create_user")String create_user);
+	/**
+	 * 为角色解绑用户
+	 * @param role_id
+	 * 被修改的角色id
+	 * @param user_id
+	 * 解绑的用户id
+	 */
+	public void delUsersOfRole(@Param("role_id")String role_id,@Param("user_id")String user_id);
 	
 	/**
 	 * 查询所有角色
 	 * @return
 	 */
 	public List<Role> findAllRole();
+	/**
+	 * 查询所有子角色
+	 * @param role_id
+	 * 父角色id
+	 * @return
+	 */
+	public List<Role> findAllChildRole(String role_id);
+	
+	/**
+	 * 得到角色的权限id集
+	 * @param role_id
+	 * 角色id
+	 * @return
+	 */
+	public List<Integer> findPrivilegeIdByRid(String role_id);
+	
+	/**
+	 * 通过权限id得到权限
+	 * @param Privilege_id
+	 * 权限id
+	 * @return
+	 */
+	public Privilege findPrivilegeByPid(int privilege_id);
 }

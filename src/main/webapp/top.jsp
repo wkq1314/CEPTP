@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
- <div style="text-align:center;color:blue;font-size:50px">这里是头部）牡丹亭</div>  
+ <div style="text-align:center;color:blue;font-size:50px">学生实验操作平台</div>  
 </body>
 </html></span>

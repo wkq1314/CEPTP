@@ -1,9 +1,45 @@
 package cn.edu.tit.util;
 
+import java.io.BufferedInputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
+
 import org.springframework.stereotype.Repository;
 
 @Repository
 public class RoleUtil {
+	
+	private ClassLoader classLoader = RoleUtil.class.getClassLoader();  
+	
+	/**
+	 * 从properties文件获取页面
+	 * @param key
+	 * 要获取的页面,properties的键
+	 * @return
+	 */
+	public String getPage(String key){
+		Properties pro = new Properties();
+		String page = ""; 
+		InputStream bfs;
+		try {
+			bfs = new BufferedInputStream(classLoader.getResourceAsStream("page.properties"));
+			pro.load(bfs);
+			page = pro.getProperty(key);
+			bfs.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return page;
+	}
+
 	/**
 	 * 将传入的数字作为脚标获得26个英文字母中对应的字母
 	 * 此方法用于判断当前角色属于其父角色的第几个孩子以获取其相应id

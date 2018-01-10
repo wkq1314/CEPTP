@@ -1,6 +1,7 @@
 package cn.edu.tit.role.Iservice.serivceImp;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import cn.edu.tit.role.Idao.IRoleDao;
 import cn.edu.tit.role.Iservice.IRoleService;
+import cn.edu.tit.role.bean.Privilege;
 import cn.edu.tit.role.bean.Role;
 import cn.edu.tit.util.RoleUtil;
 
@@ -33,64 +35,93 @@ public class RoleServiceImp implements IRoleService {
 	}
 
 	@Override
-	public void addRole(Role role) {
+	public void addRole(String role_name,List<Integer> privilegeList,String parentRoleId,String create_user) {
 		/*
 		 * 根据父角色id获取当前角色id
 		 * 获取对象信息
 		 */
-		String create_user = role.getCreate_user();
-		String parentRoleId = role.getParent_role_id();
 		int num = roleDao.findChildRoleNumById(parentRoleId);
 		char name = roleUtil.getLetterByNum(num);
 		String role_id = parentRoleId+name;   //获得id
-		String role_name = role.getRole_name();  //获得角色名
-		role.setRole_id(role_id);  //封装为完整的Role对象
 		/*
 		 * 调用持久层方法存储role
 		 */
 		roleDao.addRole(role_id, role_name,parentRoleId, create_user);
-		List<Integer> privilegeList = role.getPrivilegeIdList();   //获取role-privilege 并存储
 		for(int privilege_id : privilegeList){
 			roleDao.addRolePrivilege(role_id, privilege_id, create_user);
 		}
 	}
 
 	@Override
-	public void editRole(String role_id,String role_name,String create_user,List<Integer>old_privilegeIdList,List<Integer>new_privilegeIdList) {
-		//得到权限的删除集合
-		old_privilegeIdList.removeAll(new_privilegeIdList);
-		//得到权限的添加集合
-		new_privilegeIdList.removeAll(old_privilegeIdList);
-		//执行删除逻辑
-		delRolePrivilege(role_id, old_privilegeIdList);
-		//执行添加逻辑
-		addRolePrivilege(role_id, create_user, new_privilegeIdList);
+	public void editRole(String role_id,String role_name,String update_user,List<Integer>old_privilegeIdList,List<Integer>new_privilegeIdList) {
+		if(old_privilegeIdList!=null && new_privilegeIdList!=null){
+			List<Integer> del_privilegeIdList = new ArrayList<>(); //要删除的权限集合
+			List<Integer> upd_privilegeIdList = new ArrayList<>(); //要更新的权限集合
+			for(int dp : old_privilegeIdList){
+				del_privilegeIdList.add(dp);
+			}
+			for(int up : new_privilegeIdList){
+				upd_privilegeIdList.add(up);
+			}
+			//通过差集得到要删除的权限集合
+			del_privilegeIdList.removeAll(new_privilegeIdList);
+			//通过差集得到要更新的权限集合
+			upd_privilegeIdList.removeAll(old_privilegeIdList);
+			//执行删除逻辑
+			if(old_privilegeIdList.size()!=0){
+				delRolePrivilege(role_id, del_privilegeIdList);
+			}
+			//执行添加逻辑
+			if(new_privilegeIdList.size()!=0){
+				addRolePrivilege(role_id, update_user, upd_privilegeIdList);
+			}
+		}
+		roleDao.updateRoleName(role_id, role_name, update_user);
 	}
 
 	@Override
 	public void addUserForRole(String role_id,String create_user, List<String> staff_idList) {
-		//子角色绑定选定用户
+		//角色绑定选定用户
 		for(String staffid : staff_idList ){
 			roleDao.addUserForRole(role_id, staffid, create_user);
 		}
 	}
 
 	@Override
+	public void delUsersOfRole(String role_id, List<String> users) {
+		//角色解绑选定用户
+		for(String userid : users){
+			roleDao.delUsersOfRole(role_id, userid);
+		}
+	}
+	
+	@Override
 	public List<Role> schAllRole() {
 		// 查询所有角色并返回
-		return null;
+		List<Role> roleList = new ArrayList<>();
+		roleList = roleDao.findAllRole();
+		return roleList;
 	}
 	
 	@Override
 	public List<Role> schAllChildRole(String role_id) {
-		// TODO Auto-generated method stub
-		return null;
+		//查询所有子角色并返回
+		List<Role> roleList = new ArrayList<>();
+		roleList = roleDao.findAllChildRole(role_id);
+		return roleList;
 	}
 
 	@Override
-	public List<Integer> schPrivilegeById(String role_id) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Privilege> schPrivilegeByRId(String role_id) {
+		//得到角色的权限id集
+		List<Integer> privilegeIdList = new ArrayList<>();
+		privilegeIdList = roleDao.findPrivilegeIdByRid(role_id);
+		//通过权限id得到权限集
+		List<Privilege> privilegeList = new ArrayList<>();
+		for(int pid : privilegeIdList){
+			privilegeList.add(roleDao.findPrivilegeByPid(pid));
+		}
+		return privilegeList;
 	}
 	
 	/**
@@ -125,6 +156,5 @@ public class RoleServiceImp implements IRoleService {
 			}
 		}
 	}
-	
 
 }

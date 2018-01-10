@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -21,7 +22,7 @@
 					class="my-icon nav-icon icon_1"></i><span>角色/权限设置</span><i
 					class="my-icon nav-more"></i></a>
 				<ul>
-					<li><a target="right" href="addrole.jsp"><span>添加角色</span></a></li>
+					<li><a target="right" href="${pageContext.request.contextPath}/role/toRolePage"><span>添加角色</span></a></li>
 					<li><a target="right" href="adduser.jsp"><span>添加用户</span></a></li>
 					<li><a target="right" href="addright.jsp"><span>权限分配</span></a></li>
 					<li><a href="javascript:;"><span>权限修改</span></a></li>

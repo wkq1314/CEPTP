@@ -37,10 +37,10 @@
 		select role_id from ceptp_role where role_id like CONCAT(#{role_id}, '%');
 	</select>
 	
-	<!-- 根据id删除权限(逻辑删除) -->
-	<update id="delRolePrivilegeById">
-		update ceptp_role_privilege set delete_flg = 1 where role_id = #{role_id} and privilege_id = #{privilege_id};
-	</update>
+	<!-- 根据id删除权限 -->
+	<delete id="delRolePrivilegeById">
+		delete from ceptp_role_privilege where role_id = #{role_id} and privilege_id = #{privilege_id};
+	</delete>
 	
 	<!-- 为角色绑定用户 -->
 	<insert id="addUserForRole" parameterType="java.util.HashMap">
@@ -48,8 +48,33 @@
 		values (#{role_id},#{user_id},#{create_user},now(),#{create_user},now());
 	</insert>
 	
+	<!-- 为角色解绑用户 -->
+	<delete id="delUsersOfRole" parameterType="java.util.HashMap">
+		delete from ceptp_role_user where role_id=#{role_id} and user_id=#{user_id};
+	</delete>
+	
 	<!-- 查询所有角色 -->
 	<select id="findAllRole" resultType="cn.edu.tit.role.bean.Role">
-		select * from ceptp_role 
+		select * from ceptp_role;
 	</select>
+	
+	<!-- 查询某角色子角色 -->
+	<select id="findAllChildRole" parameterType="java.lang.String" resultType="cn.edu.tit.role.bean.Role">
+		select * from ceptp_role where parent_role_id = #{role_id};
+	</select>
+	
+	<!-- 得到角色的权限id集 -->
+	<select id="findPrivilegeIdByRid" parameterType="java.lang.String" resultType="int">
+		select privilege_id from ceptp_role_privilege where role_id=#{role_id};
+	</select>
+	
+	<!-- 通过权限id得到权限 -->
+	<select id="findPrivilegeByPid" parameterType="int" resultType="cn.edu.tit.role.bean.Privilege">
+		select * from ceptp_dic_privilege where privilege_id = #{privilege_id}
+	</select>
+	
+	<!-- 修改角色名 -->
+	<update id="updateRoleName" parameterType="java.util.HashMap">
+		update ceptp_role set role_name=#{role_name},update_user = #{update_user},update_time=now() where role_id=#{role_id};
+	</update>
 </mapper>

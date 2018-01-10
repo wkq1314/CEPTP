@@ -1,5 +1,6 @@
 package cn.edu.tit.role.bean;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
@@ -12,11 +13,19 @@ public class Role {
 	private String role_name;  //角色名称
 	private String parent_role_id;  //父角色id
 	private String create_user;  //创建人id
+	private String create_time; //创建时间
 	private List<Teacher> teacherList;  //角色对应的用户 
 	
 	//setter-getter
+	
 	public String getParent_role_id() {
 		return parent_role_id;
+	}
+	public String getCreate_time() {
+		return create_time;
+	}
+	public void setCreate_time(String create_time) {
+		this.create_time = create_time;
 	}
 	public void setParent_role_id(String parent_role_id) {
 		this.parent_role_id = parent_role_id;
