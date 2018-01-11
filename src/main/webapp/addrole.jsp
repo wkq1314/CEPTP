@@ -1,88 +1,80 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%  
+String path = request.getContextPath();  
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";  
+request.setAttribute("path", basePath);  
+%>  
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
+<head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>添加角色</title>
 <link rel="stylesheet" type="text/css"
-	href="bootstrap/css/bootstrap.min.css" />
-<script type="text/javascript" src="js/jquery-3.2.1.js"></script>
-<script type="text/javascript">
-	//添加行
-	function addTable() {
-		var tab = document.getElementById("viewTabs"); //获得表格
-		var colsNum = tab.rows.item(0).cells.length; //表格的列数
-		//表格当前的行数 
-		var num = document.getElementById("viewTabs").rows.length;
-		var rownum = num;
-		tab.insertRow(rownum);
-		for (var i = 0; i < 4; i++) {
-			tab.rows[rownum].insertCell(i);//插入列
-			if (i == 0) {
-				tab.rows[rownum].cells[i].innerHTML = '<input type="text" class="form-control" name="role_name"'
-					+'value="">';
-			} else if (i == 1) {
-				tab.rows[rownum].cells[i].innerHTML = '<input type="text" class="form-control" name="role_create"'
-					+'value="">';
-			} else if (i == 2) {
-				tab.rows[rownum].cells[i].innerHTML = '<input type="text" class="form-control"'
-					+'name="role_createTime" value="">';
-			} else {
-				tab.rows[rownum].cells[i].innerHTML = '<a class="btn btn-default"'
-						+ 'href="deleteEmp"'
-						+ 'onclick="return sumbit_sure()">修改权限</a>'
-						+ '<a class="btn btn-default"'
-						+'href="toupdateEmployee">添加用户</a>';
-			}
-		}
-		tab.rows[rownum].insertCell(i);
-		tab.rows[rownum].cells[i].innerHTML = '<a href="#" onclick="delRow(this)">删除行</a>';
-	}
-	//删除行
-	function delRow(obj) {
-		var Row = obj.parentNode;
-		var Row = obj.parentNode; //tr
-		while (Row.tagName.toLowerCase() != "tr") {
-			Row = Row.parentNode;
-		}
-		Row.parentNode.removeChild(Row); //删除行
-	}
-</script>
+	href="${path }bootstrap/css/bootstrap.min.css" />
+<link
+	href="http://cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css"
+	rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="${path }css/htmleaf-demo.css">
+<link rel="stylesheet" type="text/css" href="${path }css/build.css">
+<script type="text/javascript" src="${path }js/jquery-3.2.1.js"></script>
 </head>
 <body>
 	<nav class="navbar navbar-inverse">
 	<div class="container-fluid">
 		<div class="navbar-header">
-			<a class="navbar-brand" href="#"> 添加用户</a>
+			<a class="navbar-brand" href="#"> 添加角色</a>
 		</div>
 	</div>
 	</nav>
-	<table class="table table-striped  bandTable" id="viewTabs">
-		<thead>
-			<tr>
-				<th>角色名称</th>
-				<th>创建人</th>
-				<th>创建时间</th>
-				<th>操作</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td><input type="text" class="form-control" name="role_name"
-					value=""></td>
-				<td><input type="text" class="form-control" name="role_create"
-					value=""></td>
-				<td><input type="text" class="form-control"
-					name="role_createTime" value=""></td>
-				<td><a class="btn btn-default" href="deleteEmp"
-					onclick="return sumbit_sure()" >修改权限</a> <a class="btn btn-default"
-					href="toupdateEmployee">添加用户</a></td>
-				<td></td>
-			</tr>
-		</tbody>
-		<table>
-			<div style="text-align: center">
-				<button type="button" class="btn btn-success" onclick="addTable();">添加角色</button>
+	<div style="margin-left: 10%;">
+	<form id="form1" action="<c:url value='/role/addRole'/>" method="post">
+		<div class="row">
+			<div class="form-group">
+				<label class="col-sm-2 control-label">角色名</label>
+				<div class="col-sm-6">
+					<input type="text" class="form-control" name="role_name" value=""
+						style="width: 200px">
+					<input type="hidden" id="newPrivilegeList" name="newPrivilegeList" value="" />
+				</div>
 			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-4">
+				<fieldset>
+					<legend>权限分配 </legend>
+					<c:forEach items="${privilegeList }" var="privilege" varStatus="status">
+					<div class="checkbox checkbox-info">
+						<input id="${status.index }" name="pcheck" class="styled" type="checkbox" value="${privilege.privilege_id }"> <label
+							for="${status.index }"> ${privilege.privilege_name } </label>
+					</div>
+					</c:forEach>
+					<div style="text-align: center">
+				<button type="submit" class="btn btn-success" onclick="addRole();">添加角色</button>
+			</div>
+				</fieldset>
+			</div>
+			
+		</div>
+		</form>
+	</div>
 </body>
+<script type="text/javascript">
+	function addRole(){
+		//获得所有的权限选框
+		var checkBoxStr = document.getElementsByName("pcheck");
+		var result = ""
+		for( var i = 0;i<checkBoxStr.length;i++){
+			if(checkBoxStr[i].checked == true){
+				result += checkBoxStr[i].value;
+				if(i != checkBoxStr.length-1){
+					result+=",";
+				}
+			}
+		}
+		$("#newPrivilegeList").val(result);
+		$("#form1").submit();
+	}
+</script>
 </html>

@@ -41,31 +41,53 @@ public class Text {
         	logger.info(t.getStaff_id());  
         }
     }  
-     
+    
     public void addRoletest(){
     	Role role = new Role();
-    	role.setCreate_user("AB");
+    	role.setCreate_user("152056138");
+    	role.setParent_role_id("C");
     	role.setRole_name("hello");
     	List<Integer> p =  new ArrayList<>();
     	p.add(1);
 //    	p.add(2);
 //    	p.add(3);
     	role.setPrivilegeIdList(p);
-    	roleService.addRole(role);
+    	//roleService.addRole(role);
     }
     
     public void addRolePrivilegeText(){
     	List<Integer> privilegeIdList =  new ArrayList<>();
-    	privilegeIdList.add(2);
+    	privilegeIdList.add(1);
 //    	p.add(2);
-    	roleService.addRolePrivilege("Ac", "A", privilegeIdList);
+    	//roleService.addRolePrivilege("Ac", "A", privilegeIdList);
     }
-    @Test
+    
     public void getchildRid(){
     	List<Integer> privilegeIdList =  new ArrayList<>();
     	privilegeIdList.add(1);
-    	roleService.delRolePrivilege("AB", privilegeIdList);
+    	//roleService.delRolePrivilege("AB", privilegeIdList);
     		
     	
+    }
+    
+    public void editroleP(){
+    	String updateUser = "152056138";
+    	String RoleId = "C";
+    	String rolename = "helloW";
+    	List<Integer> oldP = new ArrayList<>();
+    	oldP.add(1);
+    	oldP.add(2);
+    	oldP.add(3);
+    	List<Integer> newP = new ArrayList<>();
+    	newP.add(2);
+    	newP.add(3);
+    	newP.add(4);
+    	roleService.editRole(RoleId, rolename, updateUser, oldP, newP);
+    }
+    @Test
+    public void deluserofRole(){
+    	List<String> users = new ArrayList<>();
+    	users.add("152056138");
+    	roleService.delUsersOfRole("AB", users);
     }
 }
