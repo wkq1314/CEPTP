@@ -1,5 +1,6 @@
 package cn.edu.tit.user.Iservice;
 
+import java.io.File;
 import java.util.List;
 
 import org.apache.poi.ss.usermodel.Workbook;
@@ -8,28 +9,45 @@ import cn.edu.tit.user.bean.Teacher;
 
 public interface IUserService {
 	/**
-	 * 教师登录方法
-	 * @param username：用户名
-	 * @param password：密码
-	 * @return：教师
+	 * 鏁欏笀鐧诲綍鏂规硶
+	 * @param username锛氱敤鎴峰悕
+	 * @param password锛氬瘑鐮�
+	 * @return锛氭暀甯�
 	 */
 	public Teacher teaSignIn(String username,String password);
 	
 	/**
-	 * 学生登录方法
-	 * @param username：用户名
-	 * @param password：密码
-	 * @return：学生
+	 * 瀛︾敓鐧诲綍鏂规硶
+	 * @param username锛氱敤鎴峰悕
+	 * @param password锛氬瘑鐮�
+	 * @return锛氬鐢�
 	 */
 	public Teacher stuSignIn(String username,String password);
 	/**
-	 * 导入教师信息
-	 * @return：完成状态信息
+	 * 瀵煎叆鏁欏笀淇℃伅
+	 * @return锛氬畬鎴愮姸鎬佷俊鎭�
 	 */
 	public List<Integer> importInfo(Workbook wb, String fileName) throws Exception;
 	/**
-	 * 导入学生信息
-	 * @return:完成状态信息
+	 * 瀵煎叆瀛︾敓淇℃伅
+	 * @return:瀹屾垚鐘舵�佷俊鎭�
 	 */
 	public List<Integer> importInfoStudent(Workbook wb, String sfileName)throws Exception;
+	/**
+	 * 查询教师全部信息（无密码）
+	 */
+	public void findAllTea();
+	/**
+	 * 导出教师全部信息（无密码）
+	 * @return
+	 */
+	public File exportTeacher();
+	/**
+	 * 查询学生全部信息（无密码）
+	 */
+	public void findAllStudent();
+	/**
+	 * 查询学生全部信息（无密码）
+	 */
+	public File exportStudent();
 }
