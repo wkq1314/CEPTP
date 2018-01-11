@@ -18,10 +18,50 @@
 		<result column="phone" property="phone" />
 		<result column="mobile" property="mobile" />
 	</resultMap>
-	
+	<resultMap type="cn.edu.tit.user.bean.Student" id="student">
+		<id column="stu_id" property="stu_id" />
+		<result column="stu_name" property="stu_name" />
+		<result column="sex" property="sex" />
+		<result column="password" property="password" />
+		<result column="class_id" property="class_id" />
+		<result column="pro_id" property="pro_id" />
+		<result column="qq" property="qq" />
+		<result column="mobile" property="mobile" />
+		<result column="role_id" property="role_id" />
+		<result column="college_id" property="college_id" />
+		<result column="dept_id" property="dept_id" />
+	</resultMap> 
 	<!-- 通过id查询某角色的信息 -->
-	<select id="findTeaById" parameterType="java.lang.String" resultMap="teacher">
-		select * from ceptp_staff where staff_id = #{staff_id} and delete_flg = 0;
-		
+	<select id="findTeaById" parameterType="java.lang.String"
+		resultMap="teacher">
+		select * from ceptp_staff where staff_id = #{staff_id} and
+		delete_flg = 0;
+
 	</select>
+	<!-- 导入教师信息 -->
+	<insert id="importInfo" parameterType="java.util.HashMap">
+		insert into ceptp_staff
+		(staff_id, staff_name, password, sex,
+		degree_id, pro_title_id,
+		college_id, dept_id, pro_id,
+		email, is_dimission,phone,
+		mobile,is_firstLogin,delete_flg,
+		create_user,create_time,update_user,update_time)
+		values
+		(#{teacher.staff_id},
+		#{teacher.staff_name},#{teacher.password},#{teacher.sex},
+		#{teacher.degree_id},#{teacher.pro_title_id},#{teacher.college_id},#{teacher.dept_id},#{teacher.pro_id},
+		#{teacher.email},#{teacher.is_dimission},#{teacher.phone},#{teacher.mobile},1,0,
+		#{create_user},#{create_time},#{update_user},#{update_time})
+	</insert>
+	<!-- 导入学生信息 --> 
+	<insert id="importInfoStudent">
+		insert into ceptp_student
+		(stu_id,stu_name,sex,password,class_id,pro_id,qq,mobile,role_id,college_id,dept_id,delete_flg,create_user,
+		create_time,update_user,update_time)
+		values
+		(#{student.stu_id},#{student.stu_name},#{student.sex},#{student.password},#{student.class_id},
+		#{student.pro_id},#{student.qq},#{student.mobile},#{student.role_id},#{student.college_id},
+		#{student.dept_id},0,#{create_user},#{create_time},#{update_user},#{update_time})
+	</insert>
 </mapper>
