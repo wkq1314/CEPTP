@@ -31,6 +31,56 @@
 		<result column="college_id" property="college_id" />
 		<result column="dept_id" property="dept_id" />
 	</resultMap> 
+	<!-- teacher结果集映射 -->
+	<resultMap type="cn.edu.tit.user.bean.ExcelT" id="allteacher">
+		<id column="staff_id" property="staff_id" />
+		<result column="staff_name" property="staff_name" />
+		<result column="sex" property="sex" />
+		<result column="degree_id" property="degree_id" />
+		<result column="pro_title_id" property="pro_title_id" />
+		<result column="college_id" property="college_id" />
+		<result column="dept_id" property="dept_id" />
+		<result column="pro_id" property="pro_id" />
+		<result column="email" property="email" />
+		<result column="is_dimission" property="is_dimission" />
+		<result column="phone" property="phone" />
+		<result column="mobile" property="mobile" />
+		<result column="is_firstLogin" property="is_firstLogin" />
+		<result column="delete_flg" property="delete_flg" />
+		<result column="create_user" property="create_user" />
+		<result column="create_time" property="create_time" />
+		<result column="update_user" property="update_user" />
+		<result column="update_time" property="update_time" />
+		
+	</resultMap>
+	<!-- student结果集映射 -->
+	<resultMap type="cn.edu.tit.user.bean.ExcelS" id="allstudent">
+        <id column="stu_id" property="stu_id" />
+		<result column="stu_name" property="stu_name" />
+		<result column="sex" property="sex" />
+		<result column="class_id" property="class_id" />
+		<result column="pro_id" property="pro_id" />
+		<result column="qq" property="qq" />
+		<result column="mobile" property="mobile" />
+		<result column="role_id" property="role_id" />
+		<result column="college_id" property="college_id" />
+		<result column="dept_id" property="dept_id" />
+		<result column="delete_flg" property="delete_flg" />
+		<result column="create_user" property="create_user" />
+		<result column="create_time" property="create_time" />
+		<result column="update_user" property="update_user" />
+		<result column="update_time" property="update_time" />
+     </resultMap>
+	<!-- 查询教师的信息 -->
+	<select id="findAllTea" resultMap="allteacher">
+		select * from ceptp_staff;
+	</select>
+
+
+<!-- 查询学生的信息 -->
+	<select id="findAllStudent" resultMap="allstudent">
+		select * from ceptp_student;
+	</select>
 	<!-- 通过id查询某角色的信息 -->
 	<select id="findTeaById" parameterType="java.lang.String"
 		resultMap="teacher">
