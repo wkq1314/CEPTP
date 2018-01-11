@@ -19,13 +19,6 @@
 		<log4j.version>1.2.17</log4j.version>
 	</properties>
 
-	<dependency>
-		<groupId>javax.servlet</groupId>
-		<artifactId>javax.servlet-api</artifactId>
-		<version>4.0.0</version>
-		<scope>provided</scope>
-	</dependency>
-
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
@@ -98,7 +91,13 @@
 			<version>3.6</version>
 		</dependency>
 		<!-- poi end -->
-
+		<!--Google tools -->
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>15.0</version>
+		</dependency>
+		<!--Google tools end -->
 		<!-- mybatis start -->
 		<dependency>
 			<groupId>org.mybatis</groupId>
@@ -187,7 +186,7 @@
 			<artifactId>jackson-mapper-asl</artifactId>
 			<version>1.9.4</version>
 		</dependency>
-		
+
 	</dependencies>
 	<build>
 		<finalName>CEPTP</finalName>

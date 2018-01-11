@@ -1,11 +1,14 @@
 package cn.edu.tit.user.Iservice.serviceImp;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
+import java.util.UUID;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import javax.transaction.Transactional;
-
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -15,13 +18,19 @@ import org.springframework.stereotype.Service;
 
 import cn.edu.tit.user.Idao.IUserDao;
 import cn.edu.tit.user.Iservice.IUserService;
+import cn.edu.tit.user.bean.DownExcels;
+import cn.edu.tit.user.bean.DownExcelt;
+import cn.edu.tit.user.bean.ExcelS;
+import cn.edu.tit.user.bean.ExcelT;
 import cn.edu.tit.user.bean.Student;
 import cn.edu.tit.user.bean.Teacher;
+import cn.edu.tit.user.utils.ExcelUtils;
+import cn.edu.tit.user.utils.RequestUtils;
 
 @Service
 @Transactional
 public class UserServiceImp implements IUserService {
-
+	private static final Logger logger = LoggerFactory.getLogger(UserServiceImp.class);
 	@Autowired
 	IUserDao userDao;
 
@@ -311,13 +320,122 @@ public class UserServiceImp implements IUserService {
 				Integer false_i = i + 2;
 				list.add(false_i);
 				flagF++;
-
 			}
 		}
 		list.add(flagT);// 添加入list中
 		list.add(flagF);// 添加入list中
 		return list;
-		
+	}
+
+	@Override
+	public void findAllTea() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public File exportTeacher() {
+		// TODO Auto-generated method stub
+		List<ExcelT> teacherList = userDao.findAllTea();
+		List<DownExcelt> teacherlist = new ArrayList<DownExcelt>();
+		try {
+			for (int i = 0; i < teacherList.size(); i++) {
+				// 创建de对象，通过将从数据库中取得的值赋值给de，将de添加到teacherlist中，使其可以按固定格式输出
+				DownExcelt de;
+				ExcelT et = teacherList.get(i);
+				de = new DownExcelt(et.getStaff_id(), et.getStaff_name(), et.getDegree_id(), et.getPro_id(),
+						et.getCollege_id(), et.getDept_id(), et.getPro_id(), et.getEmail(), et.getPhone(),
+						et.getMobile(), et.getCreate_user(), et.getCreate_time(), et.getUpdate_user(),
+						et.getUpdate_time());
+				boolean sex = teacherList.get(i).getSex();
+				if (sex) {
+					de.setSex("男");
+				} else {
+					de.setSex("女");
+				}
+				boolean is_dimission = teacherList.get(i).getIs_dimission();
+				if (is_dimission) {
+					de.setIs_dimission("是");
+				} else {
+					de.setIs_dimission("否");
+				}
+				boolean is_firstLogin = teacherList.get(i).getIs_firstLogin();
+				if (is_firstLogin) {
+					de.setIs_firstLogin("是");
+				} else {
+					de.setIs_firstLogin("否");
+				}
+				boolean delete_flg = teacherList.get(i).getDelete_flg();
+				if (delete_flg) {
+					de.setDelete_flg("是");
+				} else {
+					de.setDelete_flg("否");
+				}
+				teacherlist.add(de);
+			}
+			// 对excel的表头进行赋值
+			File file = ExcelUtils.exportExcel(teacherlist,
+					RequestUtils.getRequest().getSession().getServletContext().getRealPath(File.separator)
+							+ UUID.randomUUID().toString() + ".xls",
+					new String[] { "教师工号", "教师名", "性别", "学位id", "职称id", "所在学院", "所在系部", "所在专业", "邮箱", "是否在岗", "固定电话",
+							"移动电话", "是否第一次登陆", "是否删除", "创建者", "创建时间", "更新者", "更新时间" },
+					"updateTime");
+			return file;
+		} catch (IOException e) {
+			logger.error(e.getMessage(), e.toString());
+		} catch (IllegalAccessException e) {
+			logger.error(e.getMessage(), e.toString());
+		}
+		return null;
+	}
+
+	@Override
+	public void findAllStudent() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public File exportStudent() {
+		// TODO Auto-generated method stub
+		List<ExcelS> studentList = userDao.findAllStudent();
+		List<DownExcels> studentlist = new ArrayList<DownExcels>();
+		try {
+			for (int i = 0; i < studentList.size(); i++) {
+				//建立ds对象，通过对ds对象进行赋值，使其具有数据库中student所具有的值，将ds存进studentlist中，用来对excel表格进行赋值
+				DownExcels ds;
+				ExcelS es = studentList.get(i);
+				ds = new DownExcels(es.getStu_id(), es.getStu_name(), es.getClass_id(), es.getPro_id(), es.getqq(),
+						es.getMobile(), es.getRole_id(), es.getCollege_id(), es.getDept_id(), es.getCreate_user(),
+						es.getCreate_time(), es.getUpdate_user(), es.getUpdate_time());
+				boolean sex = studentList.get(i).getSex();
+				if (sex) {
+					ds.setSex("男");
+				} else {
+					ds.setSex("女");
+				}
+				boolean delete_flg = studentList.get(i).getDelete_flg();
+				if (delete_flg) {
+					ds.setDelete_flg("是");
+				} else {
+					ds.setDelete_flg("否");
+				}
+				studentlist.add(ds);
+			}
+			// 对excel的表头进行赋值
+			File file = ExcelUtils.exportExcel(studentlist,
+					RequestUtils.getRequest().getSession().getServletContext().getRealPath(File.separator)
+							+ UUID.randomUUID().toString() + ".xls",
+					new String[] { "学生学号", "姓名", "性别", "班级", "专业", "QQ号", "移动电话", "角色ID", "所以学院ID", "所在系部ID", "是否删除",
+							"是否删除", "创建者", "创建时间", "更新者", "更新时间" },
+					"updateTime");
+			return file;
+		} catch (IOException e) {
+			logger.error(e.getMessage(), e.toString());
+		} catch (IllegalAccessException e) {
+			logger.error(e.getMessage(), e.toString());
+		}
+		return null;
 	}
 
 }

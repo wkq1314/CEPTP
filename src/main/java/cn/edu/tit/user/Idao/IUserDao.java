@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import cn.edu.tit.user.bean.ExcelS;
+import cn.edu.tit.user.bean.ExcelT;
 import cn.edu.tit.user.bean.Student;
 import cn.edu.tit.user.bean.Teacher;
 
@@ -30,5 +32,7 @@ public interface IUserDao {
 	
 	public void importInfoStudent(@Param("student")Student student,@Param("create_user")String create_user,@Param("create_time")Date create_time,
 			@Param("update_user")String update_user,@Param("update_time")Date update_time);
+	public List<ExcelT> findAllTea();
+	public List<ExcelS> findAllStudent();
 	
 }
