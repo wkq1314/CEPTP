@@ -52,7 +52,7 @@ public class Text {
 //    	p.add(2);
 //    	p.add(3);
     	role.setPrivilegeIdList(p);
-    	roleService.addRole(role);
+    	//roleService.addRole(role);
     }
     
     public void addRolePrivilegeText(){
