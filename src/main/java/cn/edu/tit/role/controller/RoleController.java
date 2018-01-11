@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import cn.edu.tit.role.Iservice.IRoleService;
 import cn.edu.tit.role.bean.Privilege;
 import cn.edu.tit.role.bean.Role;
+import cn.edu.tit.user.Iservice.IUserService;
 import cn.edu.tit.util.RoleUtil;
 
 @Controller
@@ -20,6 +21,8 @@ public class RoleController {
 	
 	@Autowired
 	private IRoleService roleService;
+	@Autowired
+	private IUserService userService;
 	@Autowired
 	private RoleUtil roleUtil;
 	//private Logger log = Logger.getLogger(RoleController.class);
@@ -68,6 +71,12 @@ public class RoleController {
 		String page = roleUtil.getPage("addright");
 		return page;
 	}
+	
+	/**
+	 * 修改角色
+	 * @param request
+	 * @return
+	 */
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value="/editRoleInfo" )
 	public String editRoleInfo(HttpServletRequest request){
@@ -130,6 +139,48 @@ public class RoleController {
 		String user_id ="152056138";
 		//调用业务逻辑添加
 		roleService.addRole(role_name, newPrivilegeList, parent_role_id, user_id);
+		return toRolePage(request);
+	}
+	
+	/**
+	 * 跳转到绑定用户界面
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="/tobindUserForRole")
+	public String tobindUserForRole(HttpServletRequest request){
+		//获取所需信息
+		String role_id = request.getParameter("role_id"); //被修改角色id
+		//获取所有教师信息
+		
+		//存入request
+		request.setAttribute("role_id", role_id);
+		request.setAttribute("teacherList", null);
+		//跳转到绑定页面
+		String page = roleUtil.getPage("adduser");
+		return page;
+	}
+	
+	/**
+	 * 为角色绑定用户
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="/bindUserForRole")
+	public String bindUserForRole(HttpServletRequest request){
+		//获取所需的信息
+		String role_id = request.getParameter("role_id"); //被修改角色id
+		//String user_id = (String) request.getSession().getAttribute("user_id"); //获取修改人id
+		String user_id = "152056138";
+		//获得绑定的用户列表
+		String userIdStr = request.getParameter("userIdStrs");
+		String[] userIdStrs = userIdStr.split(",");
+		List<String> userIdList = new ArrayList<>();
+		for(String userId : userIdStrs){
+			userIdList.add(userId);
+		}
+		//调用业务逻辑绑定
+		roleService.addUserForRole(role_id, user_id, userIdList);
 		return toRolePage(request);
 	}
 }

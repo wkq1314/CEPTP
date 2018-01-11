@@ -45,7 +45,7 @@ request.setAttribute("path", basePath);
 					name="role_createTime" value="${role.create_time }"></td>
 				<td><a class="btn btn-default" href="<c:url value='/role/toUpdateRole?role_id=${role.role_id }&role_name=${role.role_name }&parent_role_id=${role.parent_role_id }'/>"
 					 >修改权限</a> <a class="btn btn-default"
-					href="toupdateEmployee">添加用户</a></td>
+					href="<c:url value='/role/tobindUserForRole?role_id=${role.role_id }' />">添加用户</a></td>
 				<td></td>
 			</tr>
 	</c:forEach>

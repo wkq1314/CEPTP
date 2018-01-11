@@ -31,4 +31,9 @@ public interface IUserDao {
 	public void importInfoStudent(@Param("student")Student student,@Param("create_user")String create_user,@Param("create_time")Date create_time,
 			@Param("update_user")String update_user,@Param("update_time")Date update_time);
 	
+	/**
+	 * 获取所有教师信息
+	 * @return
+	 */
+	public List<Teacher> findAllTea();
 }
