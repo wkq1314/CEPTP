@@ -68,11 +68,10 @@ request.setAttribute("path", basePath);
 		for( var i = 0;i<checkBoxStr.length;i++){
 			if(checkBoxStr[i].checked == true){
 				result += checkBoxStr[i].value;
-				if(i != checkBoxStr.length-1){
-					result+=",";
-				}
+				result+=",";
 			}
 		}
+		result = result.substring(0,result.lastIndexOf(","));
 		$("#newPrivilegeList").val(result);
 		$("#form1").submit();
 	}

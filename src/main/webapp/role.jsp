@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-	<%  
+<%  
 String path = request.getContextPath();  
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";  
 request.setAttribute("path", basePath);  
@@ -12,9 +12,9 @@ request.setAttribute("path", basePath);
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>添加角色</title>
-<link rel="stylesheet" type="/text/css"
-	href="${path }/bootstrap/css/bootstrap.min.css" />
-
+<link rel="stylesheet" type="text/css"
+	href="${path }bootstrap/css/bootstrap.min.css" />
+<script type="text/javascript" src="${path }js/jquery-3.2.1.js"></script>
 
 </head>
 <body>

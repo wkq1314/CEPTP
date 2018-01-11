@@ -54,12 +54,12 @@ public class RoleServiceImp implements IRoleService {
 
 	@Override
 	public void editRole(String role_id,String role_name,String update_user,List<Integer>old_privilegeIdList,List<Integer>new_privilegeIdList) {
-		if(old_privilegeIdList!=null && new_privilegeIdList!=null){
+		if(old_privilegeIdList.size()!=0 || new_privilegeIdList.size()!=0){
 			List<Integer> del_privilegeIdList = new ArrayList<>(); //要删除的权限集合
-			List<Integer> upd_privilegeIdList = new ArrayList<>(); //要更新的权限集合
 			for(int dp : old_privilegeIdList){
 				del_privilegeIdList.add(dp);
 			}
+			List<Integer> upd_privilegeIdList = new ArrayList<>(); //要更新的权限集合
 			for(int up : new_privilegeIdList){
 				upd_privilegeIdList.add(up);
 			}

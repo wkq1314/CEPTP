@@ -13,6 +13,8 @@ import cn.edu.tit.role.Iservice.IRoleService;
 import cn.edu.tit.role.bean.Privilege;
 import cn.edu.tit.role.bean.Role;
 import cn.edu.tit.user.Iservice.IUserService;
+import cn.edu.tit.user.bean.ExcelT;
+import cn.edu.tit.user.bean.Teacher;
 import cn.edu.tit.util.RoleUtil;
 
 @Controller
@@ -90,9 +92,11 @@ public class RoleController {
 		//从页面获取更新后的权限列表
 		String newPrivilegeStrs = request.getParameter("newPrivilegeList");
 		List<Integer> newPrivilegeList = new ArrayList<>();
-		String[] np = newPrivilegeStrs.split(",");
-		for(String p : np){
-			newPrivilegeList.add(Integer.parseInt(p));
+		if(!("".equals(newPrivilegeStrs))){
+			String[] np = newPrivilegeStrs.split(",");
+			for(String p : np){
+				newPrivilegeList.add(Integer.parseInt(p));
+			}
 		}
 		//调用业务逻辑
 		roleService.editRole(role_id, role_name, updateUser, oldPrivilegeIdList, newPrivilegeList);
@@ -151,11 +155,26 @@ public class RoleController {
 	public String tobindUserForRole(HttpServletRequest request){
 		//获取所需信息
 		String role_id = request.getParameter("role_id"); //被修改角色id
-		//获取所有教师信息
-		
+		//获取所有教师id
+		List<String> teacherIdList = userService.findTeacherId();
+		//获得角色绑定的所有用户id
+		Role role = roleService.schRoleInfo(role_id);
+		List<String> teaOfRoleIds = new ArrayList<>();
+		if(role!=null){
+			for(Teacher t : role.getTeacherList()){
+				teaOfRoleIds.add(t.getStaff_id());
+			}
+		}
+		//获得用户未绑定的用户id
+		teacherIdList.removeAll(teaOfRoleIds);
+		//获得用户未绑定的用户
+		List<Teacher> teacherList = new ArrayList<>();
+		for(String tid : teacherIdList){
+			teacherList.add(userService.findTeaById(tid));
+		}
 		//存入request
 		request.setAttribute("role_id", role_id);
-		request.setAttribute("teacherList", null);
+		request.setAttribute("teacherList", teacherList);
 		//跳转到绑定页面
 		String page = roleUtil.getPage("adduser");
 		return page;

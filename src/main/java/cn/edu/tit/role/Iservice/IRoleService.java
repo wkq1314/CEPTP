@@ -85,4 +85,6 @@ public interface IRoleService {
 	 * 被解绑用户的id列表
 	 */
 	public void delUsersOfRole(String role_id,List<String> users);
+	
+	
 }

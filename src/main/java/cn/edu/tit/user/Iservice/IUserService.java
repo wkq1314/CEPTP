@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.poi.ss.usermodel.Workbook;
 
+import cn.edu.tit.user.bean.ExcelT;
 import cn.edu.tit.user.bean.Teacher;
 
 public interface IUserService {
@@ -36,7 +37,7 @@ public interface IUserService {
 	/**
 	 * 查询教师全部信息（无密码）
 	 */
-	public void findAllTea();
+	public List<ExcelT> findAllTea();
 	/**
 	 * 导出教师全部信息（无密码）
 	 * @return
@@ -50,4 +51,16 @@ public interface IUserService {
 	 * 查询学生全部信息（无密码）
 	 */
 	public File exportStudent();
+	
+	/**
+	 * 获取所有的教师id
+	 * @return
+	 */
+	public List<String> findTeacherId();
+	/**
+	 * 通过id找教师
+	 * @param staff_id
+	 * @return
+	 */
+	public Teacher findTeaById(String staff_id);
 }

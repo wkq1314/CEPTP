@@ -328,8 +328,8 @@ public class UserServiceImp implements IUserService {
 	}
 
 	@Override
-	public void findAllTea() {
-		// TODO Auto-generated method stub
+	public List<ExcelT> findAllTea() {
+		return userDao.findAllTea();
 
 	}
 
@@ -436,6 +436,18 @@ public class UserServiceImp implements IUserService {
 			logger.error(e.getMessage(), e.toString());
 		}
 		return null;
+	}
+
+	@Override
+	public List<String> findTeacherId() {
+		
+		return userDao.findTeacherId();
+	}
+
+	@Override
+	public Teacher findTeaById(String staff_id) {
+		// TODO Auto-generated method stub
+		return userDao.findTeaById(staff_id);
 	}
 
 }

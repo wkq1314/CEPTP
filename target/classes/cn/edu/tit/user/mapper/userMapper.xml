@@ -114,4 +114,8 @@
 		#{student.pro_id},#{student.qq},#{student.mobile},#{student.role_id},#{student.college_id},
 		#{student.dept_id},0,#{create_user},#{create_time},#{update_user},#{update_time})
 	</insert>
+	
+	<select id="findTeacherId" resultType="java.lang.String">
+		select staff_id from ceptp_staff;
+	</select>
 </mapper>
