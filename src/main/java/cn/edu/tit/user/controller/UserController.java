@@ -45,6 +45,7 @@ public class UserController {
 		String usercategory = request.getParameter("usercategory");
 		// 判断用户是学生还是教师
 		Teacher teacher = null;
+		Student student=null;
 		if (usercategory != null && !("".equals(usercategory))) {
 			if (Integer.parseInt(usercategory) == 1) {
 				// 用户是教师，判断用户输入的id是否为空
@@ -76,7 +77,7 @@ public class UserController {
 						Map<String, Object> stuMap = userService.stuSignIn(userid, password);
 						System.out.println(stuMap);
 						String page = (String) stuMap.get("2");
-						teacher = (Teacher) stuMap.get("1");
+						student = (Student) stuMap.get("1");
 						return page;
 					} catch (Exception e) {
 						e.printStackTrace();
