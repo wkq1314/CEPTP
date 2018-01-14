@@ -15,11 +15,31 @@ public class Teacher {
 	private Boolean is_dimission;  //是否离职
 	private String phone;  //固定电话
 	private String mobile;  //移动电话
+	private Boolean is_firstLogin;//是否第一次登录
 	//Teacher构造函数
 	public Teacher() {
 
 	}
 
+	public Teacher(String staff_id, String staff_name, String password, Boolean sex, Integer degree_id,
+			Integer pro_title_id, Integer college_id, Integer dept_id, Integer pro_id, String email,
+			Boolean is_dimission, String phone, String mobile, Boolean is_firstLogin) {
+		super();
+		this.staff_id = staff_id;
+		this.staff_name = staff_name;
+		this.password = password;
+		this.sex = sex;
+		this.degree_id = degree_id;
+		this.pro_title_id = pro_title_id;
+		this.college_id = college_id;
+		this.dept_id = dept_id;
+		this.pro_id = pro_id;
+		this.email = email;
+		this.is_dimission = is_dimission;
+		this.phone = phone;
+		this.mobile = mobile;
+		this.is_firstLogin = is_firstLogin;
+	}
 	public Teacher(String staff_id, String staff_name, String password, Boolean sex, Integer degree_id, Integer pro_title_id,
 			Integer college_id,Integer dept_id, Integer pro_id, String email, Boolean is_dimission, String phone, String mobile ) {
 		this.staff_id = staff_id;
@@ -114,5 +134,11 @@ public class Teacher {
 	}
 	public void setMobile(String mobile) {
 		this.mobile = mobile== null ? null : mobile.trim();
+	}
+	public Boolean getIs_firstLogin() {
+		return is_firstLogin;
+	}
+	public void setIs_firstLogin(Boolean is_firstLogin) {
+		this.is_firstLogin = is_firstLogin;
 	}
 }
