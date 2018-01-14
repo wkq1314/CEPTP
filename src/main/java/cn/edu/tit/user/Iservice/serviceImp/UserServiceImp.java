@@ -4,7 +4,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,6 +28,7 @@ import cn.edu.tit.user.bean.Student;
 import cn.edu.tit.user.bean.Teacher;
 import cn.edu.tit.user.utils.ExcelUtils;
 import cn.edu.tit.user.utils.RequestUtils;
+import cn.edu.tit.util.RoleUtil;
 
 @Service
 @Transactional
@@ -33,17 +36,93 @@ public class UserServiceImp implements IUserService {
 	private static final Logger logger = LoggerFactory.getLogger(UserServiceImp.class);
 	@Autowired
 	IUserDao userDao;
-
+	@Autowired
+	private RoleUtil roleUtil;
 	@Override
-	public Teacher teaSignIn(String username, String password) {
-		// TODO Auto-generated method stub
-		return null;
+	public Map<String, Object> teaSignIn(String userid, String password) {
+		Map<String, Object> mapList = new HashMap<>();
+		List<Teacher> teacherList = userDao.findTeaById(userid);
+		Teacher teacher = null;
+		if (teacherList != null && teacherList.size() > 0) {
+			teacher = teacherList.get(0);
+		}
+		if (password.equals(teacher.getPassword())) {
+			// 密码正确，判断是否是admin
+			if ("admin".equals(userid)) {
+				// 是admin，判断是否是第一次登录
+				Boolean is_firstLogin = teacher.getIs_firstLogin();
+				if (is_firstLogin) {
+					// 是第一次登录，修改admin登录状态
+					is_firstLogin = false;
+					Boolean is_success = null;
+					try {
+						// 根据工号修改教师对象的is_firstLogin
+						userDao.modifyIs_firstLogin(userid, is_firstLogin);
+						is_success = true;
+					} catch (Exception e) {
+						e.printStackTrace();
+						is_success = false;
+					}
+					if (is_success) {
+						// 修改成功，跳转到导入页面
+						String page = roleUtil.getPage("initialise");
+						mapList.put("1", teacher);
+						mapList.put("2", page);
+						return mapList;
+					} else {
+						// 修改失败，跳转到登录界面
+						String page = roleUtil.getPage("login");
+						mapList.put("1", teacher);
+						mapList.put("2", page);
+						return mapList;
+					}
+				} else {
+					// 不是第一次登录，跳转到主界面
+					String page = roleUtil.getPage("index");
+					mapList.put("1", teacher);
+					mapList.put("2", page);
+					return mapList;
+				}
+			} else {
+				// 不是admin
+				// 获得教师的角色和权限
+				// 跳到index.jsp ---??
+				String page = roleUtil.getPage("index");
+				mapList.put("1", teacher);
+				mapList.put("2", page);
+				return mapList;
+			}
+		} else {
+			// 密码不正确，跳转到登录页面
+			String page = roleUtil.getPage("login");
+			mapList.put("1", teacher);
+			mapList.put("2", page);
+			return mapList;
+		}
+		
 	}
 
 	@Override
-	public Teacher stuSignIn(String username, String password) {
-		// TODO Auto-generated method stub
-		return null;
+	public Map<String, Object> stuSignIn(String userid, String password) {
+		Map<String, Object> mapList = new HashMap<>();
+		List<Student> studentList = userDao.findStuById(userid);
+		Student student = null;
+		if (studentList != null && studentList.size() > 0) {
+			student = studentList.get(0);
+		}
+		if (password.equals(student.getPassword())) {
+			// 用户名密码正确，跳转到首页
+			String page = roleUtil.getPage("index");
+			mapList.put("1", student);
+			mapList.put("2", page);
+			return mapList;
+		} else {
+			// 密码不正确，跳转到登录页面
+			String page = roleUtil.getPage("login");
+			mapList.put("1", student);
+			mapList.put("2", page);
+			return mapList;
+		}
 	}
 
 	@Override
@@ -427,7 +506,7 @@ public class UserServiceImp implements IUserService {
 					RequestUtils.getRequest().getSession().getServletContext().getRealPath(File.separator)
 							+ UUID.randomUUID().toString() + ".xls",
 					new String[] { "学生学号", "姓名", "性别", "班级", "专业", "QQ号", "移动电话", "角色ID", "所以学院ID", "所在系部ID", "是否删除",
-							"是否删除", "创建者", "创建时间", "更新者", "更新时间" },
+							 "创建者", "创建时间", "更新者", "更新时间" },
 					"updateTime");
 			return file;
 		} catch (IOException e) {
@@ -436,6 +515,17 @@ public class UserServiceImp implements IUserService {
 			logger.error(e.getMessage(), e.toString());
 		}
 		return null;
+	}
+
+	@Override
+	public Student findStuById(String stu_id) {
+		List<Student> studentList = userDao.findStuById(stu_id);
+		Student student = null;
+		if (studentList != null && studentList.size() > 0) {
+			student = studentList.get(0);
+			return student;
+		}
+		return student;
 	}
 
 }
