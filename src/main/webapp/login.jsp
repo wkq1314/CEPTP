@@ -12,10 +12,10 @@
 	content="html5, css3, form, switch, animation, :target, pseudo-class" />
 <meta name="author" content="Codrops" />
 <link rel="shortcut icon" href="../favicon.ico">
-<link rel="stylesheet" type="text/css" href="css/demo.css" />
-<link rel="stylesheet" type="text/css" href="css/style3.css" />
-<link rel="stylesheet" type="text/css" href="css/animate-custom.css" />
-<link rel="stylesheet" type="text/css" href="css/animate-custom.css" />
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/demo.css" />
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style3.css" />
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/animate-custom.css" />
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/animate-custom.css" />
 <link rel="stylesheet" type="text/css"
 	href="bootstrap/css/bootstrap.min.css" />
 </head>
@@ -33,7 +33,7 @@
 				id="tologin"></a>
 			<div id="wrapper">
 				<div id="login" class="animate form">
-					<form action="user/checkIdentity" method="post">
+					<form action="${pageContext.request.contextPath}/user/checkIdentity" method="post">
 						<h1>Log in</h1>
 						<p>
 							<label for="userid" class="uid" data-icon="u"> 用户名 </label> <input

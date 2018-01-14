@@ -13,7 +13,7 @@
         <title>freamsetindex</title>    
           
     <frameset rows="15%,85%">  
-      <frame noresize="noresize" name="top" src="${path }top.jsp" /><!-- 拥有15%的高度 -->  
+      <frame noresize="noresize" name="top" src="${pageContext.request.contextPath}/top.jsp" /><!-- 拥有15%的高度 -->  
         <frameset cols="15%,85%"><!--拥有80%的高度-->  
             <frame noresize="noresize" name="left" src="${path }left.jsp"><!--拥有25%的宽度-->  
             <frame noresize="noresize" name="right" src=""><!--拥有75%的宽度-->  
