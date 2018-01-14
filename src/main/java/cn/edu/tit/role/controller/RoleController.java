@@ -36,13 +36,13 @@ public class RoleController {
 	 */
 	@RequestMapping(value="/toRolePage")
 	public String toRolePage(HttpServletRequest request){
-		//获得角色信息
-		List<Role> roleList = new ArrayList<>();
-		roleList = roleService.schAllChildRole("C");
-		//获取访问页面
-		String page = roleUtil.getPage("role");
-		request.setAttribute("roleList", roleList);
-		return page;
+//		//获得角色信息
+//		List<Role> roleList = new ArrayList<>();
+//		roleList = roleService.schAllChildRole("C");
+//		//获取访问页面
+//		String page = roleUtil.getPage("role");
+//		request.setAttribute("roleList", roleList);
+		return "index";
 	}
 	/**
 	 * 跳转到修改角色页面
