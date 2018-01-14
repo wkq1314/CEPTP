@@ -12,10 +12,10 @@
 	content="html5, css3, form, switch, animation, :target, pseudo-class" />
 <meta name="author" content="Codrops" />
 <link rel="shortcut icon" href="../favicon.ico">
-<link rel="stylesheet" type="text/css" href="css/demo.css" />
-<link rel="stylesheet" type="text/css" href="css/style3.css" />
-<link rel="stylesheet" type="text/css" href="css/animate-custom.css" />
-<link rel="stylesheet" type="text/css" href="css/animate-custom.css" />
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/demo.css" />
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style3.css" />
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/animate-custom.css" />
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/animate-custom.css" />
 <link rel="stylesheet" type="text/css"
 	href="bootstrap/css/bootstrap.min.css" />
 </head>
@@ -33,11 +33,11 @@
 				id="tologin"></a>
 			<div id="wrapper">
 				<div id="login" class="animate form">
-					<form action="mysuperscript.php" autocomplete="on">
+					<form action="${pageContext.request.contextPath}/user/checkIdentity" method="post">
 						<h1>Log in</h1>
 						<p>
-							<label for="username" class="uname" data-icon="u"> 用户名 </label> <input
-								id="username" name="username" required="required" type="text"
+							<label for="userid" class="uid" data-icon="u"> 用户名 </label> <input
+								id="userid" name="userid" required="required" type="text"
 								placeholder="myusername or mymail@mail.com" />
 						</p>
 						<p>
@@ -46,13 +46,13 @@
 								type="password" placeholder="eg. X8df!90EO" />
 						</p>
 						<div class="form-group">
-							<select class="form-control">
-								<option selected="selected">学生</option>
-								<option>教师</option>
+							<select class="form-control" name="usercategory">
+								<option selected="selected" value="0">学生</option>
+								<option value="1">教师</option>
 							</select>
 						</div>
 						<p class="login button" style="text-align: center;">
-							<button type="button" class="btn btn-primary">登录（login）</button>
+							<button type="submit" class="btn btn-primary">登录（login）</button>
 
 							<!-- Indicates a successful or positive action -->
 							<button type="button" class="btn btn-success">取消(cancel)</button>
