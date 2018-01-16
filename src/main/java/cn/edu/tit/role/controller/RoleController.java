@@ -40,8 +40,7 @@ public class RoleController {
 		String role_id = request.getParameter("role_id");
 		String role_name = request.getParameter("role_name");
 		//List<Role> roleList = new ArrayList<Role>();
-		List<Role> roleList = roleService.findRoleByCondition(role_id,role_name);
-		
+		List<Role> roleList = roleService.findRoleByCondition(role_id,role_name);		
 		return null;
 	}
 	/**
@@ -127,8 +126,8 @@ public class RoleController {
 	@RequestMapping(value="/toAddRole")
 	public String toAddRole(HttpServletRequest request){
 		//获取当前角色拥有的权限列表
-		//String role_id = (String) request.getSession().getAttribute("role_id");
-		String role_id = "C";
+		String role_id = (String) request.getSession().getAttribute("role_id");
+		//String role_id = "C";
 		List<Privilege> privilegeList = roleService.schPrivilegeByRId(role_id);
 		//存入request中
 		request.setAttribute("privilegeList", privilegeList);
