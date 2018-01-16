@@ -32,7 +32,7 @@
 		<result column="dept_id" property="dept_id" />
 	</resultMap> 
 	<!-- teacher结果集映射 -->
-	<resultMap type="cn.edu.tit.user.bean.ExcelT" id="allteacher">
+	<resultMap type="cn.edu.tit.user.bean.Teacher" id="allteacher">
 		<id column="staff_id" property="staff_id" />
 		<result column="staff_name" property="staff_name" />
 		<result column="sex" property="sex" />
@@ -54,7 +54,7 @@
 		
 	</resultMap>
 	<!-- student结果集映射 -->
-	<resultMap type="cn.edu.tit.user.bean.ExcelS" id="allstudent">
+	<resultMap type="cn.edu.tit.user.bean.Student" id="allstudent">
         <id column="stu_id" property="stu_id" />
 		<result column="stu_name" property="stu_name" />
 		<result column="sex" property="sex" />
@@ -130,5 +130,17 @@
 		update ceptp_staff set is_firstLogin = #{is_firstLogin} 
 			where staff_id = #{staff_id}
 	</update>
+	<!-- 根据条件查询教师信息 -->
+	<select id="findUserByCondition" parameterType="java.lang.String" resultType="cn.edu.tit.user.bean.Teacher">
+		select * from ceptp_staff
+		<where>
+		<if test="staff_id !=null and staff_id !=''">
+		staff_id = #{staff_id}
+		</if>
+		<if test="staff_name !=null and staff_name !=''">
+		and staff_name = #{staff_name}</if>
+		</where>
+		<!--  where staff_id = #{staff_id} and staff_name = #{staff_name}; -->
+	</select>
 	
 </mapper>

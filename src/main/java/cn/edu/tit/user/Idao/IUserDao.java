@@ -5,8 +5,8 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
-import cn.edu.tit.user.bean.ExcelS;
-import cn.edu.tit.user.bean.ExcelT;
+import cn.edu.tit.user.bean.Student;
+import cn.edu.tit.user.bean.Teacher;
 import cn.edu.tit.user.bean.Student;
 import cn.edu.tit.user.bean.Teacher;
 
@@ -22,7 +22,7 @@ public interface IUserDao {
 	 * @param staff_id：工号
 	 * @return：教师对象列表
 	 */
-	public Teacher findTeaById(String staff_id);
+	public List<Teacher> findTeaById(String staff_id);
 	/**
 	 * 根据工号查询学生对象
 	 * @param stu_id
@@ -48,17 +48,35 @@ public interface IUserDao {
 	 * 获取所有教师信息
 	 * @return
 	 */
+<<<<<<< HEAD
 	public List<ExcelT> findAllTea();
 	public List<String> findTeacherId();
 	
 	
 
+=======
+	public List<Teacher> findAllTea();
+
+	public List<String> findTeacherId();
+	
+>>>>>>> ac0c6ab1d51d441854b954251689601f4ee02647
 	/**
 	 * 获取所有学生信息
 	 * @return
 	 */
-	public List<ExcelS> findAllStudent();
+	public List<Student> findAllStudent();
 	
+	/**
+	 * 根据条件查询教师
+	 * @param staff_id
+	 * @param staff_name
+	 * @return
+	 * 教师列表
+	 */
+	public List<Teacher> findUserByCondition(String staff_id, String staff_name);
 	
-	
+<<<<<<< HEAD
+=======
+
+>>>>>>> ac0c6ab1d51d441854b954251689601f4ee02647
 }

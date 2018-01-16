@@ -22,8 +22,8 @@ import cn.edu.tit.user.Idao.IUserDao;
 import cn.edu.tit.user.Iservice.IUserService;
 import cn.edu.tit.user.bean.DownExcels;
 import cn.edu.tit.user.bean.DownExcelt;
-import cn.edu.tit.user.bean.ExcelS;
-import cn.edu.tit.user.bean.ExcelT;
+import cn.edu.tit.user.bean.Student;
+import cn.edu.tit.user.bean.Teacher;
 import cn.edu.tit.user.bean.Student;
 import cn.edu.tit.user.bean.Teacher;
 import cn.edu.tit.user.utils.ExcelUtils;
@@ -408,7 +408,7 @@ public class UserServiceImp implements IUserService {
 	}
 
 	@Override
-	public List<ExcelT> findAllTea() {
+	public List<Teacher> findAllTea() {
 		return userDao.findAllTea();
 
 	}
@@ -416,13 +416,13 @@ public class UserServiceImp implements IUserService {
 	@Override
 	public File exportTeacher() {
 		// TODO Auto-generated method stub
-		List<ExcelT> teacherList = userDao.findAllTea();
+		List<Teacher> teacherList = userDao.findAllTea();
 		List<DownExcelt> teacherlist = new ArrayList<DownExcelt>();
 		try {
 			for (int i = 0; i < teacherList.size(); i++) {
 				// 创建de对象，通过将从数据库中取得的值赋值给de，将de添加到teacherlist中，使其可以按固定格式输出
 				DownExcelt de;
-				ExcelT et = teacherList.get(i);
+				Teacher et = teacherList.get(i);
 				de = new DownExcelt(et.getStaff_id(), et.getStaff_name(), et.getDegree_id(), et.getPro_id(),
 						et.getCollege_id(), et.getDept_id(), et.getPro_id(), et.getEmail(), et.getPhone(),
 						et.getMobile(), et.getCreate_user(), et.getCreate_time(), et.getUpdate_user(),
@@ -478,13 +478,13 @@ public class UserServiceImp implements IUserService {
 	@Override
 	public File exportStudent() {
 		// TODO Auto-generated method stub
-		List<ExcelS> studentList = userDao.findAllStudent();
+		List<Student> studentList = userDao.findAllStudent();
 		List<DownExcels> studentlist = new ArrayList<DownExcels>();
 		try {
 			for (int i = 0; i < studentList.size(); i++) {
 				//建立ds对象，通过对ds对象进行赋值，使其具有数据库中student所具有的值，将ds存进studentlist中，用来对excel表格进行赋值
 				DownExcels ds;
-				ExcelS es = studentList.get(i);
+				Student es = studentList.get(i);
 				ds = new DownExcels(es.getStu_id(), es.getStu_name(), es.getClass_id(), es.getPro_id(), es.getqq(),
 						es.getMobile(), es.getRole_id(), es.getCollege_id(), es.getDept_id(), es.getCreate_user(),
 						es.getCreate_time(), es.getUpdate_user(), es.getUpdate_time());
@@ -528,7 +528,12 @@ public class UserServiceImp implements IUserService {
 	@Override
 	public Teacher findTeaById(String staff_id) {
 		// TODO Auto-generated method stub
+<<<<<<< HEAD
 		return userDao.findTeaById(staff_id);
+=======
+		userDao.findTeaById(staff_id);
+		return null;
+>>>>>>> ac0c6ab1d51d441854b954251689601f4ee02647
 	}
 	public Student findStuById(String stu_id) {
 		List<Student> studentList = userDao.findStuById(stu_id);
@@ -538,7 +543,16 @@ public class UserServiceImp implements IUserService {
 			return student;
 		}
 		return student;
+<<<<<<< HEAD
 
 	}
+=======
+>>>>>>> ac0c6ab1d51d441854b954251689601f4ee02647
 
+	}
+	@Override
+	public List<Teacher> findUserByCondition(String staff_id, String staff_name) {
+		List<Teacher> teacherList = userDao.findUserByCondition(staff_id,staff_name);
+		return teacherList;
+	}
 }

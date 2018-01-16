@@ -66,7 +66,7 @@ public class ImportXlsController {
 		}
 		//转换到新额页面
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("show");
+		mav.setViewName("index");
 		return mav;
 	}
 	/**

@@ -123,4 +123,12 @@ public interface IRoleDao {
 	 * @return
 	 */
 	public Privilege findPrivilegeByPid(int privilege_id);
+	/**
+	 * 按条件查询角色信息
+	 * @param role_id
+	 * @param role_name
+	 * @return
+	 * 角色列表
+	 */
+	public List<Role> findRoleByCondition(@Param("role_id")String role_id, @Param("role_name")String role_name);
 }

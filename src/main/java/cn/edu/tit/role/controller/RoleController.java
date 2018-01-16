@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,7 +14,7 @@ import cn.edu.tit.role.Iservice.IRoleService;
 import cn.edu.tit.role.bean.Privilege;
 import cn.edu.tit.role.bean.Role;
 import cn.edu.tit.user.Iservice.IUserService;
-import cn.edu.tit.user.bean.ExcelT;
+import cn.edu.tit.user.bean.Teacher;
 import cn.edu.tit.user.bean.Teacher;
 import cn.edu.tit.util.RoleUtil;
 
@@ -28,6 +29,21 @@ public class RoleController {
 	@Autowired
 	private RoleUtil roleUtil;
 	//private Logger log = Logger.getLogger(RoleController.class);
+	
+	/**
+	 * 按条件查询角色信息
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="/toSeaRole")
+	public String toSeaRole(HttpServletRequest request){
+		String role_id = request.getParameter("role_id");
+		String role_name = request.getParameter("role_name");
+		//List<Role> roleList = new ArrayList<Role>();
+		List<Role> roleList = roleService.findRoleByCondition(role_id,role_name);
+		
+		return null;
+	}
 	/**
 	 * 跳转到角色-权限页面
 	 * @param request
