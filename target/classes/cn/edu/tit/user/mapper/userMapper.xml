@@ -119,17 +119,16 @@
 		#{student.pro_id},#{student.qq},#{student.mobile},#{student.role_id},#{student.college_id},
 		#{student.dept_id},0,#{create_user},#{create_time},#{update_user},#{update_time})
 	</insert>
-<<<<<<< HEAD
+
 	
 	<select id="findTeacherId" resultType="java.lang.String">
 		select staff_id from ceptp_staff;
 	</select>
-=======
+
 	<!-- 根据教师id修改is_firstLogin -->
 	<update id="modifyIs_firstLogin" parameterType="java.util.HashMap">
 		update ceptp_staff set is_firstLogin = #{is_firstLogin} 
 			where staff_id = #{staff_id}
 	</update>
 	
->>>>>>> 5758bae13a5815efc56d1373c389809fefa51c9c
 </mapper>

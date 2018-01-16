@@ -6,11 +6,8 @@ import java.util.Map;
 
 import org.apache.poi.ss.usermodel.Workbook;
 
-<<<<<<< HEAD
 import cn.edu.tit.user.bean.ExcelT;
-=======
 import cn.edu.tit.user.bean.Student;
->>>>>>> 5758bae13a5815efc56d1373c389809fefa51c9c
 import cn.edu.tit.user.bean.Teacher;
 
 public interface IUserService {

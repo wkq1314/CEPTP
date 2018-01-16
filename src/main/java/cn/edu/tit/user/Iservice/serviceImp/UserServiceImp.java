@@ -41,7 +41,8 @@ public class UserServiceImp implements IUserService {
 	@Override
 	public Map<String, Object> teaSignIn(String userid, String password) {
 		Map<String, Object> mapList = new HashMap<>();
-		List<Teacher> teacherList = userDao.findTeaById(userid);
+		List<Teacher> teacherList = new ArrayList<>();
+				teacherList.add(userDao.findTeaById(userid));
 		Teacher teacher = null;
 		if (teacherList != null && teacherList.size() > 0) {
 			teacher = teacherList.get(0);
@@ -518,7 +519,7 @@ public class UserServiceImp implements IUserService {
 	}
 
 	@Override
-<<<<<<< HEAD
+
 	public List<String> findTeacherId() {
 		
 		return userDao.findTeacherId();
@@ -528,7 +529,7 @@ public class UserServiceImp implements IUserService {
 	public Teacher findTeaById(String staff_id) {
 		// TODO Auto-generated method stub
 		return userDao.findTeaById(staff_id);
-=======
+	}
 	public Student findStuById(String stu_id) {
 		List<Student> studentList = userDao.findStuById(stu_id);
 		Student student = null;
@@ -537,7 +538,7 @@ public class UserServiceImp implements IUserService {
 			return student;
 		}
 		return student;
->>>>>>> 5758bae13a5815efc56d1373c389809fefa51c9c
+
 	}
 
 }

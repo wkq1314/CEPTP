@@ -49,13 +49,10 @@ public interface IUserDao {
 	 * @return
 	 */
 	public List<ExcelT> findAllTea();
-<<<<<<< HEAD
 	public List<String> findTeacherId();
 	
-	public List<ExcelS> findAllStudent();
 	
 
-=======
 	/**
 	 * 获取所有学生信息
 	 * @return
@@ -64,5 +61,4 @@ public interface IUserDao {
 	
 	
 	
->>>>>>> 5758bae13a5815efc56d1373c389809fefa51c9c
 }
