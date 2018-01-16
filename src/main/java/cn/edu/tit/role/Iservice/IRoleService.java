@@ -86,5 +86,14 @@ public interface IRoleService {
 	 */
 	public void delUsersOfRole(String role_id,List<String> users);
 	
+	/**
+	 * 按条件查询角色信息
+	 * @param role_id
+	 * @param role_name
+	 * @return
+	 * 角色列表
+	 */
+	public List<Role> findRoleByCondition(String role_id,String role_name);
+	
 	
 }

@@ -90,4 +90,15 @@ public class Text {
     	users.add("152056138");
     	roleService.delUsersOfRole("AB", users);
     }
+    
+    @Test
+	public void TOsearole() {
+		String role_id = "A";
+		String role_name = "";
+		//List<Role> roleList = new ArrayList<Role>();
+		List<Role>roleList = roleService.findRoleByCondition(role_id,role_name);
+		for (Role role : roleList) {
+			System.out.println(role);
+		}
+	}
 }

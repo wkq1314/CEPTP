@@ -6,10 +6,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>列表</title>
-<link rel="stylesheet" type="text/css" href="css/nav.css">
-<link rel="stylesheet" type="text/css" href="font/iconfont.css">
-<script type="text/javascript" src="js/jquery.min.js"></script>
-<script type="text/javascript" src="js/nav.js"></script>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/nav.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/font/iconfont.css">
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/nav.js"></script>
 </head>
 <body>
 	<div class="nav">
@@ -23,8 +23,8 @@
 					class="my-icon nav-more"></i></a>
 				<ul>
 					<li><a target="right" href="${pageContext.request.contextPath}/role/toRolePage"><span>添加角色</span></a></li>
-					<li><a target="right" href="adduser.jsp"><span>添加用户</span></a></li>
-					<li><a target="right" href="addright.jsp"><span>权限分配</span></a></li>
+					<li><a target="right" href="${pageContext.request.contextPath}/role/tobindUserForRole"><span>添加用户</span></a></li>
+					<li><a target="right" href="${pageContext.request.contextPath}/addright.jsp"><span>权限分配</span></a></li>
 					<li><a href="javascript:;"><span>权限修改</span></a></li>
 				</ul></li>
 			<li class="nav-item"><a href="javascript:;"><i

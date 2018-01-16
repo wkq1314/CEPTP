@@ -8,7 +8,16 @@
 		<id column="role_id" property="role_id" />
 		<collection property="teacherList"  resultMap="cn.edu.tit.user.Idao.IUserDao.teacher" />
 	</resultMap>
-	
+	<!-- 根据条件查询角色信息 -->
+	<select id="findRoleByCondition" parameterType="java.lang.String" resultType="cn.edu.tit.role.bean.Role">
+		select * from ceptp_role
+		<where><if test="role_id != null and role_id !=''">
+			and role_id = #{role_id}
+		</if>
+		<if test="role_name != null and role_name !=''">
+			and role_name = #{role_name}
+		</if></where>	  
+	</select>
 	
 	<!-- 通过角色id查询某角色的用户信息 -->
 	<select id="findRoleById" parameterType="java.lang.String" resultMap="role_user">

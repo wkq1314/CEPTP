@@ -12,8 +12,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>绑定用户</title>
 <link rel="stylesheet" type="text/css"
-	href="${path }bootstrap/css/bootstrap.min.css" />
-<script type="text/javascript" src="${path }js/jquery-3.2.1.js"></script>
+	href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css" />
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.2.1.js"></script>
 </head>
 <body>
 	<nav class="navbar navbar-inverse">
