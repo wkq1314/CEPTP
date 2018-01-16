@@ -22,7 +22,7 @@ public interface IUserDao {
 	 * @param staff_id：工号
 	 * @return：教师对象列表
 	 */
-	public List<Teacher> findTeaById(String staff_id);
+	public Teacher findTeaById(String staff_id);
 	/**
 	 * 根据工号查询学生对象
 	 * @param stu_id
@@ -48,18 +48,10 @@ public interface IUserDao {
 	 * 获取所有教师信息
 	 * @return
 	 */
-<<<<<<< HEAD
-	public List<ExcelT> findAllTea();
-	public List<String> findTeacherId();
-	
-	
-
-=======
 	public List<Teacher> findAllTea();
 
 	public List<String> findTeacherId();
 	
->>>>>>> ac0c6ab1d51d441854b954251689601f4ee02647
 	/**
 	 * 获取所有学生信息
 	 * @return
@@ -74,9 +66,5 @@ public interface IUserDao {
 	 * 教师列表
 	 */
 	public List<Teacher> findUserByCondition(String staff_id, String staff_name);
-	
-<<<<<<< HEAD
-=======
 
->>>>>>> ac0c6ab1d51d441854b954251689601f4ee02647
 }

@@ -528,12 +528,8 @@ public class UserServiceImp implements IUserService {
 	@Override
 	public Teacher findTeaById(String staff_id) {
 		// TODO Auto-generated method stub
-<<<<<<< HEAD
 		return userDao.findTeaById(staff_id);
-=======
-		userDao.findTeaById(staff_id);
-		return null;
->>>>>>> ac0c6ab1d51d441854b954251689601f4ee02647
+
 	}
 	public Student findStuById(String stu_id) {
 		List<Student> studentList = userDao.findStuById(stu_id);
@@ -543,12 +539,6 @@ public class UserServiceImp implements IUserService {
 			return student;
 		}
 		return student;
-<<<<<<< HEAD
-
-	}
-=======
->>>>>>> ac0c6ab1d51d441854b954251689601f4ee02647
-
 	}
 	@Override
 	public List<Teacher> findUserByCondition(String staff_id, String staff_name) {
