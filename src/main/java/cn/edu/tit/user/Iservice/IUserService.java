@@ -6,11 +6,11 @@ import java.util.Map;
 
 import org.apache.poi.ss.usermodel.Workbook;
 
-<<<<<<< HEAD
-import cn.edu.tit.user.bean.ExcelT;
-=======
+
+import cn.edu.tit.user.bean.Teacher;
+
 import cn.edu.tit.user.bean.Student;
->>>>>>> 5758bae13a5815efc56d1373c389809fefa51c9c
+
 import cn.edu.tit.user.bean.Teacher;
 
 public interface IUserService {
@@ -54,7 +54,7 @@ public interface IUserService {
 	/**
 	 * 查询教师全部信息（不包含密码）
 	 */
-	public List<ExcelT> findAllTea();
+	public List<Teacher> findAllTea();
 	/**
 	 * 导出教师全部信息（不包含密码）
 	 * @return
@@ -80,4 +80,12 @@ public interface IUserService {
 	 * @return
 	 */
 	public Teacher findTeaById(String staff_id);
+	/**
+	 * 根据条件查询教师
+	 * @param staff_id
+	 * @param staff_name
+	 * @return
+	 * 教师列表
+	 */
+	public List<Teacher> findUserByCondition(String staff_id, String staff_name);
 }

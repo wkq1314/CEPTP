@@ -1,7 +1,6 @@
 package cn.edu.tit.user.bean;
-
-
 public class Teacher {
+
 	private String staff_id;  //教师工号
 	private String staff_name;  //教师名
 	private String password;  //登录密码
@@ -15,15 +14,23 @@ public class Teacher {
 	private Boolean is_dimission;  //是否离职
 	private String phone;  //固定电话
 	private String mobile;  //移动电话
-	private Boolean is_firstLogin;//是否第一次登录
-	//Teacher构造函数
+	private Boolean is_firstLogin;//是否第一次登陆
+	private Boolean delete_flg;//是否删除
+	private String create_user;//创建者
+	private String create_time;//创建时间
+	private String update_user;//更新者
+	private String update_time;//更新时间
+	
+	
+	
+	
 	public Teacher() {
-
+		super();
 	}
-
 	public Teacher(String staff_id, String staff_name, String password, Boolean sex, Integer degree_id,
 			Integer pro_title_id, Integer college_id, Integer dept_id, Integer pro_id, String email,
-			Boolean is_dimission, String phone, String mobile, Boolean is_firstLogin) {
+			Boolean is_dimission, String phone, String mobile, Boolean is_firstLogin, Boolean delete_flg,
+			String create_user, String create_time, String update_user, String update_time) {
 		super();
 		this.staff_id = staff_id;
 		this.staff_name = staff_name;
@@ -39,9 +46,16 @@ public class Teacher {
 		this.phone = phone;
 		this.mobile = mobile;
 		this.is_firstLogin = is_firstLogin;
+		this.delete_flg = delete_flg;
+		this.create_user = create_user;
+		this.create_time = create_time;
+		this.update_user = update_user;
+		this.update_time = update_time;
 	}
-	public Teacher(String staff_id, String staff_name, String password, Boolean sex, Integer degree_id, Integer pro_title_id,
-			Integer college_id,Integer dept_id, Integer pro_id, String email, Boolean is_dimission, String phone, String mobile ) {
+	public Teacher(String staff_id, String staff_name, String password, Boolean sex, Integer degree_id,
+			Integer pro_title_id, Integer college_id, Integer dept_id, Integer pro_id, String email,
+			Boolean is_dimission, String phone, String mobile) {
+		super();
 		this.staff_id = staff_id;
 		this.staff_name = staff_name;
 		this.password = password;
@@ -56,7 +70,12 @@ public class Teacher {
 		this.phone = phone;
 		this.mobile = mobile;
 	}
-	//setter-getter
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
 	public String getStaff_id() {
 		return staff_id;
 	}
@@ -67,45 +86,45 @@ public class Teacher {
 		return staff_name;
 	}
 	public void setStaff_name(String staff_name) {
-		this.staff_name = staff_name == null ? null : staff_name.trim();
+		this.staff_name = staff_name;
 	}
-	public String getPassword() {
+	/*public String getPassword() {
 		return password;
 	}
 	public void setPassword(String password) {
-		this.password = password == null ? null : password.trim();
-	}
-	public boolean isSex() {
+		this.password = password;
+	}*/
+	public Boolean getSex() {
 		return sex;
 	}
 	public void setSex(Boolean sex) {
 		this.sex = sex;
 	}
-	public int getDegree_id() {
+	public Integer getDegree_id() {
 		return degree_id;
 	}
 	public void setDegree_id(Integer degree_id) {
 		this.degree_id = degree_id;
 	}
-	public int getPro_title_id() {
+	public Integer getPro_title_id() {
 		return pro_title_id;
 	}
 	public void setPro_title_id(Integer pro_title_id) {
 		this.pro_title_id = pro_title_id;
 	}
-	public int getCollege_id() {
+	public Integer getCollege_id() {
 		return college_id;
 	}
 	public void setCollege_id(Integer college_id) {
 		this.college_id = college_id;
 	}
-	public int getDept_id() {
+	public Integer getDept_id() {
 		return dept_id;
 	}
 	public void setDept_id(Integer dept_id) {
 		this.dept_id = dept_id;
 	}
-	public int getPro_id() {
+	public Integer getPro_id() {
 		return pro_id;
 	}
 	public void setPro_id(Integer pro_id) {
@@ -115,9 +134,9 @@ public class Teacher {
 		return email;
 	}
 	public void setEmail(String email) {
-		this.email = email == null ? null : email.trim();
+		this.email = email;
 	}
-	public boolean isIs_dimission() {
+	public Boolean getIs_dimission() {
 		return is_dimission;
 	}
 	public void setIs_dimission(Boolean is_dimission) {
@@ -127,13 +146,13 @@ public class Teacher {
 		return phone;
 	}
 	public void setPhone(String phone) {
-		this.phone = phone == null ? null : phone.trim();
+		this.phone = phone;
 	}
 	public String getMobile() {
 		return mobile;
 	}
 	public void setMobile(String mobile) {
-		this.mobile = mobile== null ? null : mobile.trim();
+		this.mobile = mobile;
 	}
 	public Boolean getIs_firstLogin() {
 		return is_firstLogin;
@@ -141,4 +160,47 @@ public class Teacher {
 	public void setIs_firstLogin(Boolean is_firstLogin) {
 		this.is_firstLogin = is_firstLogin;
 	}
+	public Boolean getDelete_flg() {
+		return delete_flg;
+	}
+	public void setDelete_flg(Boolean delete_flg) {
+		this.delete_flg = delete_flg;
+	}
+	public String getCreate_user() {
+		return create_user;
+	}
+	public void setCreate_user(String create_user) {
+		this.create_user = create_user;
+	}
+	public String getCreate_time() {
+		return create_time;
+	}
+	public void setCreate_time(String create_time) {
+		this.create_time = create_time;
+	}
+	public String getUpdate_user() {
+		return update_user;
+	}
+	public void setUpdate_user(String update_user) {
+		this.update_user = update_user;
+	}
+	public String getUpdate_time() {
+		return update_time;
+	}
+	public void setUpdate_time(String update_time) {
+		this.update_time = update_time;
+	}
+	@Override
+	public String toString() {
+		return "ExcelT [staff_id=" + staff_id + ", staff_name=" + staff_name + ",  sex=" + sex
+				+ ", degree_id=" + degree_id + ", pro_title_id=" + pro_title_id + ", college_id=" + college_id
+				+ ", dept_id=" + dept_id + ", pro_id=" + pro_id + ", email=" + email + ", is_dimission=" + is_dimission
+				+ ", phone=" + phone + ", mobile=" + mobile + ", is_firstLogin=" + is_firstLogin + ", delete_flg="
+				+ delete_flg + ", create_user=" + create_user + ", create_time=" + create_time + ", update_user="
+				+ update_user + ", update_time=" + update_time + "]";
+	}
+	
+	//password=" + password + "
+	
+	
 }

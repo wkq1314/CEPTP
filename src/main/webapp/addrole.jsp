@@ -12,13 +12,13 @@ request.setAttribute("path", basePath);
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>添加角色</title>
 <link rel="stylesheet" type="text/css"
-	href="${path }bootstrap/css/bootstrap.min.css" />
+	href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css" />
 <link
 	href="http://cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css"
 	rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="${path }css/htmleaf-demo.css">
-<link rel="stylesheet" type="text/css" href="${path }css/build.css">
-<script type="text/javascript" src="${path }js/jquery-3.2.1.js"></script>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/htmleaf-demo.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/build.css">
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.2.1.js"></script>
 </head>
 <body>
 	<nav class="navbar navbar-inverse">

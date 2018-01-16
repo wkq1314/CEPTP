@@ -30,7 +30,16 @@ public class UserController {
 	@Autowired
 	private RoleUtil roleUtil;
 	// private Logger log = Logger.getLogger(RoleController.class);
-
+	/*
+	 * 根据条件查找教师
+	 */
+	@RequestMapping(value = "/toSeaUser")
+	public String toSeaUser(HttpServletRequest request) {
+		String staff_id = request.getParameter("staff_id");
+		String staff_name = request.getParameter("staff_name");
+		List<Teacher> teacherList = userService.findUserByCondition(staff_id,staff_name);
+		return null;
+	}
 	/**
 	 * 验证用户身份
 	 * 
