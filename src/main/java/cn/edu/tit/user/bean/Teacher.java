@@ -192,13 +192,14 @@ public class Teacher {
 	}
 	@Override
 	public String toString() {
-		return "ExcelT [staff_id=" + staff_id + ", staff_name=" + staff_name + ",  sex=" + sex
-				+ ", degree_id=" + degree_id + ", pro_title_id=" + pro_title_id + ", college_id=" + college_id
+		return "Teacher [staff_id=" + staff_id + ", staff_name=" + staff_name + ", password=" + password + ", sex="
+				+ sex + ", degree_id=" + degree_id + ", pro_title_id=" + pro_title_id + ", college_id=" + college_id
 				+ ", dept_id=" + dept_id + ", pro_id=" + pro_id + ", email=" + email + ", is_dimission=" + is_dimission
 				+ ", phone=" + phone + ", mobile=" + mobile + ", is_firstLogin=" + is_firstLogin + ", delete_flg="
 				+ delete_flg + ", create_user=" + create_user + ", create_time=" + create_time + ", update_user="
 				+ update_user + ", update_time=" + update_time + "]";
 	}
+	
 	
 	//password=" + password + "
 	

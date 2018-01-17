@@ -23,6 +23,13 @@ request.setAttribute("path", basePath);
 		<div class="navbar-header">
 			<a class="navbar-brand" href="#"> 添加用户</a>
 		</div>
+		<form action="${pageContext.request.contextPath}/role/toSeaRole" method="post">
+			<div style="margin-top: 10px">
+				<lable style="color:#ffffff">按名称</lable>
+				<input type="text" name="role_name"  />
+				<input type="submit"  />
+			</div>
+		</form>
 	</div>
 	</nav>
 	<table class="table table-striped  bandTable" id="viewTabs">

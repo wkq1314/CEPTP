@@ -87,5 +87,6 @@ public interface IUserService {
 	 * @return
 	 * 教师列表
 	 */
-	public List<Teacher> findUserByCondition(String staff_id, String staff_name);
+	public List<Teacher> findUserByCondition(String staff_id, String role_id);
+	public String findrole_id(String user_id);
 }

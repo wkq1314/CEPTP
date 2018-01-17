@@ -65,6 +65,12 @@ public interface IUserDao {
 	 * @return
 	 * 教师列表
 	 */
-	public List<Teacher> findUserByCondition(String staff_id, String staff_name);
+	public List<Teacher> findUserByCondition(@Param("staff_id")String staff_id, @Param("role_id")String role_id);
+	/**
+	 * 按user_id查询role_id
+	 * @param user_id
+	 * @return
+	 */
+	public String findrole_id(String user_id);
 
 }

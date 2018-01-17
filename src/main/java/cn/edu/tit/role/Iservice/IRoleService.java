@@ -93,7 +93,7 @@ public interface IRoleService {
 	 * @return
 	 * 角色列表
 	 */
-	public List<Role> findRoleByCondition(String role_id,String role_name);
+	public List<Role> findRoleByCondition(String role_name,String user_id);
 	
 	
 }

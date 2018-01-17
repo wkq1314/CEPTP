@@ -541,8 +541,15 @@ public class UserServiceImp implements IUserService {
 		return student;
 	}
 	@Override
-	public List<Teacher> findUserByCondition(String staff_id, String staff_name) {
-		List<Teacher> teacherList = userDao.findUserByCondition(staff_id,staff_name);
+	public List<Teacher> findUserByCondition(String staff_id, String role_id) {
+		List<Teacher> teacherList = userDao.findUserByCondition(staff_id,role_id);
 		return teacherList;
+	}
+
+	@Override
+	public String findrole_id(String user_id) {
+		// TODO Auto-generated method stub
+		String findrole_id = userDao.findrole_id(user_id);
+		return findrole_id;
 	}
 }
