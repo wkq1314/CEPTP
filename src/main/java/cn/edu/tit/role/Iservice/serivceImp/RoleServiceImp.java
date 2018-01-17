@@ -159,9 +159,9 @@ public class RoleServiceImp implements IRoleService {
 	
 	 
 	@Override
-	public List<Role> findRoleByCondition(String role_id, String role_name) {
+	public List<Role> findRoleByCondition(String role_name, String user_id) {
 		List<Role> roleList = new ArrayList<>();
-		roleList = roleDao.findRoleByCondition(role_id,role_name);
+		roleList = roleDao.findRoleByCondition(role_name,user_id);
 		return roleList;
 	}
 

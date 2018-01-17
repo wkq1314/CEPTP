@@ -22,7 +22,7 @@ public interface IUserDao {
 	 * @param staff_id：工号
 	 * @return：教师对象列表
 	 */
-	public List<Teacher> findTeaById(String staff_id);
+	public Teacher findTeaById(String staff_id);
 	/**
 	 * 根据工号查询学生对象
 	 * @param stu_id
@@ -65,7 +65,12 @@ public interface IUserDao {
 	 * @return
 	 * 教师列表
 	 */
-	public List<Teacher> findUserByCondition(String staff_id, String staff_name);
-	
+	public List<Teacher> findUserByCondition(@Param("staff_id")String staff_id, @Param("role_id")String role_id);
+	/**
+	 * 按user_id查询role_id
+	 * @param user_id
+	 * @return
+	 */
+	public String findrole_id(String user_id);
 
 }

@@ -15,6 +15,7 @@ request.setAttribute("path", basePath);
           
     <frameset rows="15%,85%">  
 
+
       <frame noresize="noresize" name="top" src="${pageContext.request.contextPath}/top.jsp" /><!-- 拥有15%的高度 -->  
 
         <frameset cols="15%,85%"><!--拥有80%的高度-->  

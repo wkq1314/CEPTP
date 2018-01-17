@@ -7,11 +7,11 @@ import java.util.Map;
 import org.apache.poi.ss.usermodel.Workbook;
 
 
+
 import cn.edu.tit.user.bean.Teacher;
 
 import cn.edu.tit.user.bean.Student;
 
-import cn.edu.tit.user.bean.Teacher;
 
 public interface IUserService {
 	/**
@@ -87,5 +87,6 @@ public interface IUserService {
 	 * @return
 	 * 教师列表
 	 */
-	public List<Teacher> findUserByCondition(String staff_id, String staff_name);
+	public List<Teacher> findUserByCondition(String staff_id, String role_id);
+	public String findrole_id(String user_id);
 }

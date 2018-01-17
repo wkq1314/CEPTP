@@ -37,11 +37,14 @@ public class RoleController {
 	 */
 	@RequestMapping(value="/toSeaRole")
 	public String toSeaRole(HttpServletRequest request){
-		String role_id = request.getParameter("role_id");
 		String role_name = request.getParameter("role_name");
+		Teacher teacher = (Teacher) request.getSession().getAttribute("teacher");
+		String user_id = teacher.getStaff_id();
 		//List<Role> roleList = new ArrayList<Role>();
-		List<Role> roleList = roleService.findRoleByCondition(role_id,role_name);		
-		return null;
+		List<Role> roleList = roleService.findRoleByCondition(role_name,user_id);		
+		request.setAttribute("roleList", roleList);
+		String page = roleUtil.getPage("role");
+		return page;
 	}
 	/**
 	 * 跳转到角色-权限页面
@@ -53,7 +56,7 @@ public class RoleController {
 	public String toRolePage(HttpServletRequest request){
 		//获得角色信息
 		List<Role> roleList = new ArrayList<>();
-		roleList = roleService.schAllChildRole("C");
+		roleList = roleService.schAllChildRole("A");
 		//获取访问页面
 		String page = roleUtil.getPage("role");
 		request.setAttribute("roleList", roleList);

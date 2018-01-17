@@ -30,7 +30,7 @@
 		<result column="role_id" property="role_id" />
 		<result column="college_id" property="college_id" />
 		<result column="dept_id" property="dept_id" />
-	</resultMap> 
+	</resultMap>
 	<!-- teacher结果集映射 -->
 	<resultMap type="cn.edu.tit.user.bean.Teacher" id="allteacher">
 		<id column="staff_id" property="staff_id" />
@@ -51,11 +51,11 @@
 		<result column="create_time" property="create_time" />
 		<result column="update_user" property="update_user" />
 		<result column="update_time" property="update_time" />
-		
+
 	</resultMap>
 	<!-- student结果集映射 -->
 	<resultMap type="cn.edu.tit.user.bean.Student" id="allstudent">
-        <id column="stu_id" property="stu_id" />
+		<id column="stu_id" property="stu_id" />
 		<result column="stu_name" property="stu_name" />
 		<result column="sex" property="sex" />
 		<result column="class_id" property="class_id" />
@@ -70,7 +70,7 @@
 		<result column="create_time" property="create_time" />
 		<result column="update_user" property="update_user" />
 		<result column="update_time" property="update_time" />
-     </resultMap>
+	</resultMap>
 	<!-- 查询教师的信息 -->
 	<select id="findAllTea" resultMap="allteacher">
 		select * from ceptp_staff;
@@ -79,7 +79,8 @@
 
 	<!-- 查询学生的信息 -->
 	<select id="findAllStudent" resultMap="allstudent">
-		select * from ceptp_student;
+		select * from
+		ceptp_student;
 	</select>
 	<!-- 通过id查询某角色的信息 -->
 	<select id="findTeaById" parameterType="java.lang.String"
@@ -109,7 +110,7 @@
 		#{teacher.email},#{teacher.is_dimission},#{teacher.phone},#{teacher.mobile},1,0,
 		#{create_user},#{create_time},#{update_user},#{update_time})
 	</insert>
-	<!-- 导入学生信息 --> 
+	<!-- 导入学生信息 -->
 	<insert id="importInfoStudent">
 		insert into ceptp_student
 		(stu_id,stu_name,sex,password,class_id,pro_id,qq,mobile,role_id,college_id,dept_id,delete_flg,create_user,
@@ -120,27 +121,36 @@
 		#{student.dept_id},0,#{create_user},#{create_time},#{update_user},#{update_time})
 	</insert>
 
-	
+	<!-- 查询教师ID -->
 	<select id="findTeacherId" resultType="java.lang.String">
-		select staff_id from ceptp_staff;
+		select staff_id from
+		ceptp_staff;
 	</select>
 
 	<!-- 根据教师id修改is_firstLogin -->
 	<update id="modifyIs_firstLogin" parameterType="java.util.HashMap">
-		update ceptp_staff set is_firstLogin = #{is_firstLogin} 
-			where staff_id = #{staff_id}
+		update
+		ceptp_staff set is_firstLogin = #{is_firstLogin}
+		where staff_id = #{staff_id}
 	</update>
 	<!-- 根据条件查询教师信息 -->
-	<select id="findUserByCondition" parameterType="java.lang.String" resultType="cn.edu.tit.user.bean.Teacher">
-		select * from ceptp_staff
-		<where>
-		<if test="staff_id !=null and staff_id !=''">
-		staff_id = #{staff_id}
-		</if>
-		<if test="staff_name !=null and staff_name !=''">
-		and staff_name = #{staff_name}</if>
-		</where>
-		<!--  where staff_id = #{staff_id} and staff_name = #{staff_name}; -->
+	<select id="findUserByCondition" parameterType="java.lang.String"
+		resultType="cn.edu.tit.user.bean.Teacher">
+		<!-- select * from ceptp_staff <where> <if test="staff_id !=null and staff_id 
+			!=''"> staff_id = #{staff_id} </if> <if test="staff_name !=null and staff_name 
+			!=''"> and staff_name = #{staff_name}</if> </where> -->
+		<!-- where staff_id = #{staff_id} and staff_name = #{staff_name}; -->
+		select * from ceptp_staff s,ceptp_role_user u
+		where
+		role_id = #{role_id}
+		AND
+		s.staff_id != u.user_id and s.staff_id Like CONCAT(#{staff_id}, '%')
 	</select>
-	
+	<!-- 按ID查询ceptp_role_user -->
+	<select id="findrole_id" parameterType="java.lang.String"
+		resultType="java.lang.String">
+		select role_id from ceptp_role_user where user_id =
+		#{user_id};
+	</select>
+
 </mapper>

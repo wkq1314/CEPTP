@@ -139,12 +139,5 @@ public class Student {
 	public void setUpdate_time(String update_time) {
 		this.update_time = update_time;
 	}
-	@Override
-	public String toString() {
-		return "ExcelS [stu_id=" + stu_id + ", stu_name=" + stu_name + ", sex=" + sex + ", class_id=" + class_id
-				+ ", pro_id=" + pro_id + ", qq=" + qq + ", mobile=" + mobile + ", role_id=" + role_id + ", college_id="
-				+ college_id + ", dept_id=" + dept_id + ", delete_flg=" + delete_flg + ", create_user=" + create_user
-				+ ", create_time=" + create_time + ", update_user=" + update_user + ", update_time=" + update_time
-				+ "]";
-	}
+	
 }

@@ -13,6 +13,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import cn.edu.tit.role.Iservice.IRoleService;
 import cn.edu.tit.role.bean.Role;
+import cn.edu.tit.user.Iservice.IUserService;
 import cn.edu.tit.user.bean.Teacher;
 
 @RunWith(SpringJUnit4ClassRunner.class)     //表示继承了SpringJUnit4ClassRunner类  
@@ -22,6 +23,8 @@ public class Text {
 //  private ApplicationContext ac = null;  
     @Resource  
     private IRoleService roleService ;  
+    @Resource  
+    private IUserService userService ; 
     
   
 //  @Before  
@@ -101,4 +104,15 @@ public class Text {
 			System.out.println(role);
 		}
 	}
+    @Test
+	public void searole() {
+		String role_id = "A";
+		String staff_id = "011002";
+		//List<Role> roleList = new ArrayList<Role>();
+		List<Teacher> list = userService.findUserByCondition(staff_id, role_id);
+		for (Teacher teacher : list) {
+			System.out.println(teacher);
+		}
+	}
+    
 }
