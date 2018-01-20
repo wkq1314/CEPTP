@@ -68,8 +68,8 @@
 	</select>
 	
 	<!-- 查询某角色子角色 -->
-	<select id="findAllChildRole" parameterType="java.lang.String" resultType="cn.edu.tit.role.bean.Role">
-		select * from ceptp_role where parent_role_id = #{role_id};
+	<select id="findAllChildRole" parameterType="java.util.HashMap" resultType="cn.edu.tit.role.bean.Role">
+		select * from ceptp_role where parent_role_id = #{role_id} limit #{offset},#{pc};
 	</select>
 	
 	<!-- 得到角色的权限id集 -->

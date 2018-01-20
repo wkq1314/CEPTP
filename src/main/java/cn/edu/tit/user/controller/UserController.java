@@ -11,20 +11,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import cn.edu.tit.role.Iservice.IRoleService;
-import cn.edu.tit.role.bean.Privilege;
-import cn.edu.tit.role.bean.Role;
 import cn.edu.tit.user.Iservice.IUserService;
 import cn.edu.tit.user.bean.Student;
-import cn.edu.tit.user.bean.Teacher;
 import cn.edu.tit.util.RoleUtil;
 
 @Controller
 @RequestMapping("/user")
 public class UserController {
 
-	@Autowired
-	private IRoleService roleService;
 	@Autowired
 	private IUserService userService;
 	@Autowired
@@ -109,22 +103,6 @@ public class UserController {
 
 	}
 
-	/**
-	 * 跳转到角色-权限页面
-	 * 
-	 * @param request
-	 * @param response
-	 * @return
-	 */
-	@RequestMapping(value = "/toRolePage")
-	public String toRolePage(HttpServletRequest request) {
-		// 获得角色信息
-		List<Role> roleList = new ArrayList<>();
-		roleList = roleService.schAllChildRole("C");
-		// 获取访问页面
-		String page = roleUtil.getPage("role");
-		request.setAttribute("roleList", roleList);
-		return page;
-	}
+	
 
 }

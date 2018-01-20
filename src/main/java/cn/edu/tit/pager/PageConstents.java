@@ -1,6 +1,11 @@
 package cn.edu.tit.pager;
 
+import org.springframework.stereotype.Repository;
+
+@Repository
 public class PageConstents {
-	public static final int GOODS_PAGE_SIZE = 6;
-	public static final int ORDER_PAGE_SIZE = 8;
+	//角色页每页显示条数
+	public static final int ROLE_PAGE_SIZE = 8;
+	//用户也每页显示条数
+	public static final int USER_PAGE_SIZE = 8;
 }
