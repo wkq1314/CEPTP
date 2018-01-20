@@ -13,7 +13,8 @@
 <title>绑定用户</title>
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css" />
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.2.1.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/js/jquery-3.2.1.js"></script>
 </head>
 <body>
 	<nav class="navbar navbar-inverse">
@@ -21,11 +22,19 @@
 		<div class="navbar-header">
 			<a class="navbar-brand" href="#"> 绑定用户</a>
 		</div>
+		<form action="${pageContext.request.contextPath}/user/toSeaUser"
+			method="post">
+			<div>
+				<lable style="color:#ffffff">按工号</lable>
+				<input type="text" name="staff_id" /> <input type="submit" />
+			</div>
+		</form>
 	</div>
 	</nav>
-	<form id="form1" action="<c:url value='/role/bindUserForRole'/>" method="post">
-		<input type="hidden" name="userIdStrs"  id="teacherIdList" value=""/>
-		<input type="hidden" name="role_id"  id="role_id" value="${role_id }"/>
+	<form id="form1" action="<c:url value='/role/bindUserForRole'/>"
+		method="post">
+		<input type="hidden" name="userIdStrs" id="teacherIdList" value="" />
+		<input type="hidden" name="role_id" id="role_id" value="${role_id }" />
 		<table class="table table-striped  bandTable" id="viewTabs">
 			<thead>
 				<tr>
@@ -72,24 +81,24 @@
 	function addUser() {
 		//获得所有的权限选框
 		var checkBoxStr = document.getElementsByName("teacheck");
-			//alert(checkBoxStr.length);
-			var result = "";
-			for (var i = 0; i < checkBoxStr.length; i++) {
-				if (checkBoxStr[i].checked == true) {
-					result += checkBoxStr[i].value;
-					//alert("i "+i);
-					result += ",";
-				}
+		//alert(checkBoxStr.length);
+		var result = "";
+		for (var i = 0; i < checkBoxStr.length; i++) {
+			if (checkBoxStr[i].checked == true) {
+				result += checkBoxStr[i].value;
+				//alert("i "+i);
+				result += ",";
 			}
-			if(result!=""){
-				//alert(result);
-				result = result.substring(0,result.lastIndexOf(","));
-				//alert(result);
-				$("#teacherIdList").val(result);
-				$("#form1").submit();
-			}
-			
-		else{
+		}
+		if (result != "") {
+			//alert(result);
+			result = result.substring(0, result.lastIndexOf(","));
+			//alert(result);
+			$("#teacherIdList").val(result);
+			$("#form1").submit();
+		}
+
+		else {
 			alert("请选择教师员工");
 		}
 	}

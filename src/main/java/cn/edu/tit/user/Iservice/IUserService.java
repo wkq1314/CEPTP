@@ -67,7 +67,7 @@ public interface IUserService {
 //	public File exportStudent();
 	
 	/**
-	 * 获取所有的教师id
+	 * 获取所有的用户id
 	 * @return
 	 */
 	public List<String> findUserId();
@@ -80,4 +80,5 @@ public interface IUserService {
 	 * 教师列表
 	 */
 	public List<User> findUserByCondition(String staff_id, String staff_name);
+
 }

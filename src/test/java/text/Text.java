@@ -12,11 +12,18 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 
+import cn.edu.tit.user.Iservice.IUserService;
+import cn.edu.tit.user.bean.Teacher;
+
 @RunWith(SpringJUnit4ClassRunner.class)     //表示继承了SpringJUnit4ClassRunner类  
 @ContextConfiguration(locations = {"classpath:spring-mybatis.xml"}) 
 public class Text {
 	private static Logger logger = Logger.getLogger(Text.class);  
 //  private ApplicationContext ac = null;  
+
+
+    @Resource  
+    private IUserService userService ; 
     
   
 //  @Before  
@@ -26,5 +33,5 @@ public class Text {
 //  }  
   
     
-   
+
 }

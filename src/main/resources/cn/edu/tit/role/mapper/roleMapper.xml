@@ -10,13 +10,18 @@
 	</resultMap>
 	<!-- 根据条件查询角色信息 -->
 	<select id="findRoleByCondition" parameterType="java.lang.String" resultType="cn.edu.tit.role.bean.Role">
-		select * from ceptp_role
+		<!-- select * from ceptp_role
 		<where><if test="role_id != null and role_id !=''">
 			and role_id = #{role_id}
 		</if>
-		<if test="role_name != null and role_name !=''">
-			and role_name = #{role_name}
-		</if></where>	  
+		<if test="parent_role_id != null and parent_role_id !=''">
+			and parent_role_id = #{parent_role_id}
+		</if></where>	   -->
+		select * from ceptp_role o,ceptp_role_user u
+		where
+		o.role_name Like CONCAT(#{role_name}, '%')
+		AND
+		o.parent_role_id = u.role_id and u.user_id = #{user_id}
 	</select>
 	
 	<!-- 通过角色id查询某角色的用户信息 -->

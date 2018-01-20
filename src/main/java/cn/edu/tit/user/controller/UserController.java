@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,13 +28,20 @@ public class UserController {
 	/*
 	 * 根据条件查找教师
 	 */
+
 	@RequestMapping(value = "/toSeaUser")
 	public String toSeaUser(HttpServletRequest request) {
 		String staff_id = request.getParameter("staff_id");
-		String staff_name = request.getParameter("staff_name");
-		List<Teacher> teacherList = userService.findUserByCondition(staff_id,staff_name);
-		return null;
+		Teacher teacher = (Teacher) request.getSession().getAttribute("teacher");
+		String user_id = teacher.getStaff_id();
+		String role_id = userService.findrole_id(user_id);
+		// String role_id = "A";
+		List<Teacher> teacherList = userService.findUserByCondition(staff_id, role_id);
+		request.setAttribute("teacherList", teacherList);
+		String page = roleUtil.getPage("adduser");
+		return page;
 	}
+
 	/**
 	 * 验证用户身份
 	 * 
@@ -44,32 +52,35 @@ public class UserController {
 	@RequestMapping(value = "/checkIdentity")
 	public String checkIdentity(HttpServletRequest request) {
 		// 获取表单数据
+		// 创建session
+		HttpSession session = request.getSession();
 		String userid = request.getParameter("userid");
 		String password = request.getParameter("password");
 		String usercategory = request.getParameter("usercategory");
 		// 判断用户是学生还是教师
 		Teacher teacher = null;
-		Student student=null;
+		Student student = null;
 		if (usercategory != null && !("".equals(usercategory))) {
 			if (Integer.parseInt(usercategory) == 1) {
 				// 用户是教师，判断用户输入的id是否为空
 				if (userid != null && !("".equals(userid))) {
-					//用户id不为空
-					//调用service层方法，进行教师登录
+					// 用户id不为空
+					// 调用service层方法，进行教师登录
 					try {
 						Map<String, Object> teaMap = userService.teaSignIn(userid, password);
 						System.out.println(teaMap);
 						String page = (String) teaMap.get("2");
 						teacher = (Teacher) teaMap.get("1");
+						session.setAttribute("teacher", teacher);
 						return page;
 					} catch (Exception e) {
 						e.printStackTrace();
-						//登录失败，跳回登录界面，返回错误信息
+						// 登录失败，跳回登录界面，返回错误信息
 						String page = roleUtil.getPage("login");
 						return page;
-					}				
-				}else{
-					//用户id为空，返回登录界面，输出错误信息"用户名或密码错误"
+					}
+				} else {
+					// 用户id为空，返回登录界面，输出错误信息"用户名或密码错误"
 					String page = roleUtil.getPage("login");
 					return page;
 				}
@@ -77,26 +88,28 @@ public class UserController {
 				// 用户是学生，判断id是否为空
 				if (userid != null && !("".equals(userid))) {
 					try {
-						//调用service层方法，进行学生登录
+						// 调用service层方法，进行学生登录
 						Map<String, Object> stuMap = userService.stuSignIn(userid, password);
 						System.out.println(stuMap);
 						String page = (String) stuMap.get("2");
 						student = (Student) stuMap.get("1");
+						session.setAttribute("student", student);
 						return page;
 					} catch (Exception e) {
 						e.printStackTrace();
-						//登录失败，跳回登录界面，返回错误信息
+						// 登录失败，跳回登录界面，返回错误信息
 						String page = roleUtil.getPage("login");
 						return page;
-					}	
-				}else{
-					//用户id为空，返回登录界面，输出错误信息"用户名或密码错误"
+					}
+				} else {
+					// 用户id为空，返回登录界面，输出错误信息"用户名或密码错误"
 					String page = roleUtil.getPage("login");
 					return page;
 				}
 			}
-		}else{
-			//usercategory为空，跳回登录页面，返回错误信息
+
+		} else {
+			// usercategory为空，跳回登录页面，返回错误信息
 			String page = roleUtil.getPage("login");
 			return page;
 		}
