@@ -41,12 +41,14 @@ public class UserServiceImp implements IUserService {
 	@Override
 	public Map<String, Object> teaSignIn(String userid, String password) {
 		Map<String, Object> mapList = new HashMap<>();
-		List<Teacher> teacherList = new ArrayList<>();
+		/*List<Teacher> teacherList = new ArrayList<>();
 				teacherList.add(userDao.findTeaById(userid));
 		Teacher teacher = null;
 		if (teacherList != null && teacherList.size() > 0) {
 			teacher = teacherList.get(0);
-		}
+		}*/
+		
+		Teacher teacher = userDao.findTeaById(userid);
 		if (password.equals(teacher.getPassword())) {
 			// 密码正确，判断是否是admin
 			if ("admin".equals(userid)) {
@@ -106,11 +108,11 @@ public class UserServiceImp implements IUserService {
 	@Override
 	public Map<String, Object> stuSignIn(String userid, String password) {
 		Map<String, Object> mapList = new HashMap<>();
-		List<Student> studentList = userDao.findStuById(userid);
-		Student student = null;
-		if (studentList != null && studentList.size() > 0) {
-			student = studentList.get(0);
-		}
+		//List<Student> studentList = userDao.findStuById(userid);
+		/*if (studentList != null && studentList.size() > 0) {
+		student = studentList.get(0);
+	}*/
+		Student student = userDao.findStuById(userid);
 		if (password.equals(student.getPassword())) {
 			// 用户名密码正确，跳转到首页
 			String page = roleUtil.getPage("index");
@@ -532,13 +534,12 @@ public class UserServiceImp implements IUserService {
 
 	}
 	public Student findStuById(String stu_id) {
-		List<Student> studentList = userDao.findStuById(stu_id);
-		Student student = null;
-		if (studentList != null && studentList.size() > 0) {
+		//List<Student> studentList = userDao.findStuById(stu_id);
+		/*if (studentList != null && studentList.size() > 0) {
 			student = studentList.get(0);
 			return student;
-		}
-		return student;
+		}*/
+		return userDao.findStuById(stu_id);
 	}
 	@Override
 	public List<Teacher> findUserByCondition(String staff_id, String role_id) {

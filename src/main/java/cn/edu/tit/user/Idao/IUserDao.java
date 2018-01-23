@@ -28,7 +28,7 @@ public interface IUserDao {
 	 * @param stu_id
 	 * @return
 	 */
-	public List<Student> findStuById(String stu_id);
+	public Student findStuById(String stu_id);
 	/**
 	 * 超级管理员向教师表单中添加教师
 	 * @param teacher
