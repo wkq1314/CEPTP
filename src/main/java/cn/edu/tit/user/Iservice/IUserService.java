@@ -5,88 +5,52 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.poi.ss.usermodel.Workbook;
+import cn.edu.tit.user.bean.User;
 
-
-
-import cn.edu.tit.user.bean.Teacher;
-
-import cn.edu.tit.user.bean.Student;
 
 
 public interface IUserService {
 	/**
-	 * 教师登陆
+	 * 用户登录
 	 * @param username
+	 * 用户名
 	 * @param password
+	 * 密码
 	 * @return
 	 */
-	public Map<String, Object> teaSignIn(String userid,String password);
-	
+	public Map<String, Object> userSignIn(String user_id,String password);
 	/**
-	 * 学生登录
-	 * @param userid
-	 * @param password
-	 * @return
+	 * 用户注册
+	 * @param user
+	 * 用户信息
 	 */
-	public Map<String, Object> stuSignIn(String userid,String password);
+	public Boolean userSignUP(User user);
 	/**
-	 * 导入教师信息
+	 * 导入用户信息
 	 * @param wb
 	 * @param fileName
 	 * @return
 	 * @throws Exception
 	 */
-	public List<Integer> importInfo(Workbook wb, String fileName) throws Exception;
+	public List<Integer> importInfo(Workbook wb, String fileName)throws Exception;
 	/**
-	 * 导入学生信息
-	 * @param wb
-	 * @param sfileName
-	 * @return
-	 * @throws Exception
-	 */
-	public List<Integer> importInfoStudent(Workbook wb, String sfileName)throws Exception;
-	/**
-	 * 根据学生id查询学生
-	 * @param stu_id
+	 * 根据id查询用户
+	 * @param suer_id
 	 * @return
 	 */
-	public Student findStuById(String stu_id);
+	public User findUserById(String user_id);
 	/**
-	 * 查询教师全部信息（不包含密码）
+	 * 查询用户全部信息（不包含密码）
 	 */
-	public List<Teacher> findAllTea();
+	public List<User> findAllUser();
 	/**
-	 * 导出教师全部信息（不包含密码）
+	 * 导出用户全部信息（不包含密码）
 	 * @return
 	 */
-	public File exportTeacher();
+	public File exportUser();
 	/**
-	 * 查询学生全部信息（不包含密码）
-	 */
-	public void findAllStudent();
-	/**
-	 * 查询学生全部信息（不包含密码）
-	 */
-	public File exportStudent();
-	
-	/**
-	 * 获取所有的教师id
+	 * 获取所有的用户id
 	 * @return
 	 */
-	public List<String> findTeacherId();
-	/**
-	 * 通过id找教师
-	 * @param staff_id
-	 * @return
-	 */
-	public Teacher findTeaById(String staff_id);
-	/**
-	 * 根据条件查询教师
-	 * @param staff_id
-	 * @param staff_name
-	 * @return
-	 * 教师列表
-	 */
-	public List<Teacher> findUserByCondition(String staff_id, String role_id);
-	public String findrole_id(String user_id);
+	public List<String> findUserId();
 }

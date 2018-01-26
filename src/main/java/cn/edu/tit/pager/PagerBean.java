@@ -2,7 +2,9 @@ package cn.edu.tit.pager;
 
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class PagerBean<T> {
 	private int pc;//当前页码
 	private int tr;//总记录数
@@ -19,6 +21,17 @@ public class PagerBean<T> {
 			tp++;
 		}
 		return tp;
+	}
+	/**
+	 * 获得当前数据库查询偏移量
+	 * @param pageSize
+	 * 每页记录数
+	 * @param currentPage
+	 * 当前页数
+	 * @return
+	 */
+	public int getCurrentPageOffset(int pageSize,int currentPage){
+		return pageSize * (currentPage - 1);
 	}
 	
 	public int getPc() {

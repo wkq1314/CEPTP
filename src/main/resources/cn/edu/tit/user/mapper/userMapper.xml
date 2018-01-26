@@ -3,154 +3,56 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="cn.edu.tit.user.Idao.IUserDao">
-	<!-- Role_user结果集映射 -->
-	<resultMap type="cn.edu.tit.user.bean.Teacher" id="teacher">
-		<id column="staff_id" property="staff_id" />
-		<result column="staff_name" property="staff_name" />
+	<resultMap type="cn.edu.tit.user.bean。User" id="user">
+		<id column="user_id" property="user_id" />
+		<result column="user_name" property="user_name" />
 		<result column="sex" property="sex" />
-		<result column="degree_id" property="degree_id" />
-		<result column="pro_title_id" property="pro_title_id" />
-		<result column="college_id" property="college_id" />
-		<result column="dept_id" property="dept_id" />
-		<result column="pro_id" property="pro_id" />
-		<result column="email" property="email" />
-		<result column="is_dimission" property="is_dimission" />
-		<result column="phone" property="phone" />
-		<result column="mobile" property="mobile" />
-	</resultMap>
-	<resultMap type="cn.edu.tit.user.bean.Student" id="student">
-		<id column="stu_id" property="stu_id" />
-		<result column="stu_name" property="stu_name" />
-		<result column="sex" property="sex" />
+		<result column="class_name" property="class_name" />
+		<result column="professional_title" property="professional_title" />
+		<result column="degree" property="degree" />
+		<result column="detail" property="detail" />
+		<result column="face" property="face" />
 		<result column="password" property="password" />
-		<result column="class_id" property="class_id" />
-		<result column="pro_id" property="pro_id" />
+		<result column="pro" property="pro" />
 		<result column="qq" property="qq" />
 		<result column="mobile" property="mobile" />
-		<result column="role_id" property="role_id" />
-		<result column="college_id" property="college_id" />
-		<result column="dept_id" property="dept_id" />
-	</resultMap>
-	<!-- teacher结果集映射 -->
-	<resultMap type="cn.edu.tit.user.bean.Teacher" id="allteacher">
-		<id column="staff_id" property="staff_id" />
-		<result column="staff_name" property="staff_name" />
-		<result column="sex" property="sex" />
-		<result column="degree_id" property="degree_id" />
-		<result column="pro_title_id" property="pro_title_id" />
-		<result column="college_id" property="college_id" />
-		<result column="dept_id" property="dept_id" />
-		<result column="pro_id" property="pro_id" />
-		<result column="email" property="email" />
-		<result column="is_dimission" property="is_dimission" />
-		<result column="phone" property="phone" />
-		<result column="mobile" property="mobile" />
-		<result column="is_firstLogin" property="is_firstLogin" />
-		<result column="delete_flg" property="delete_flg" />
-		<result column="create_user" property="create_user" />
-		<result column="create_time" property="create_time" />
-		<result column="update_user" property="update_user" />
-		<result column="update_time" property="update_time" />
-
-	</resultMap>
-	<!-- student结果集映射 -->
-	<resultMap type="cn.edu.tit.user.bean.Student" id="allstudent">
-		<id column="stu_id" property="stu_id" />
-		<result column="stu_name" property="stu_name" />
-		<result column="sex" property="sex" />
-		<result column="class_id" property="class_id" />
-		<result column="pro_id" property="pro_id" />
-		<result column="qq" property="qq" />
-		<result column="mobile" property="mobile" />
-		<result column="role_id" property="role_id" />
-		<result column="college_id" property="college_id" />
-		<result column="dept_id" property="dept_id" />
+		<result column="college" property="college" />
+		<result column="sec_college" property="sec_college" />
 		<result column="delete_flg" property="delete_flg" />
 		<result column="create_user" property="create_user" />
 		<result column="create_time" property="create_time" />
 		<result column="update_user" property="update_user" />
 		<result column="update_time" property="update_time" />
 	</resultMap>
-	<!-- 查询教师的信息 -->
-	<select id="findAllTea" resultMap="allteacher">
-		select * from ceptp_staff;
-	</select>
-
-
-	<!-- 查询学生的信息 -->
-	<select id="findAllStudent" resultMap="allstudent">
-		select * from
-		ceptp_student;
-	</select>
-	<!-- 通过id查询某角色的信息 -->
-	<select id="findTeaById" parameterType="java.lang.String"
-		resultMap="teacher">
-		select * from ceptp_staff where staff_id = #{staff_id} and
-		delete_flg = 0;
-	</select>
-	<!-- 通过id查询某学生的信息 -->
-	<select id="findStuById" parameterType="java.lang.String"
-		resultMap="student">
-		select * from ceptp_student where stu_id = #{stu_id} and
-		delete_flg = 0;
-	</select>
-	<!-- 导入教师信息 -->
+	<!-- 导入用户信息 -->
 	<insert id="importInfo" parameterType="java.util.HashMap">
-		insert into ceptp_staff
-		(staff_id, staff_name, password, sex,
-		degree_id, pro_title_id,
-		college_id, dept_id, pro_id,
-		email, is_dimission,phone,
-		mobile,is_firstLogin,delete_flg,
+		insert into ceptp_user
+		(user_id, user_name, sex, class_name,
+		professional_title, degree,
+		detail, face, password,
+		pro, qq,mobile,
+		college,sec_college,delete_flg,
 		create_user,create_time,update_user,update_time)
 		values
-		(#{teacher.staff_id},
-		#{teacher.staff_name},#{teacher.password},#{teacher.sex},
-		#{teacher.degree_id},#{teacher.pro_title_id},#{teacher.college_id},#{teacher.dept_id},#{teacher.pro_id},
-		#{teacher.email},#{teacher.is_dimission},#{teacher.phone},#{teacher.mobile},1,0,
+		(#{user.user_id},
+		#{user.user_name},#{user.sex},#{user.class_name},
+		#{user.professional_title},#{user.degree},#{user.detail},#{user.face},#{user.password},
+		#{user.pro},#{user.qq},#{user.mobile},#{user.college},#{user.sec_college},0,
 		#{create_user},#{create_time},#{update_user},#{update_time})
 	</insert>
-	<!-- 导入学生信息 -->
-	<insert id="importInfoStudent">
-		insert into ceptp_student
-		(stu_id,stu_name,sex,password,class_id,pro_id,qq,mobile,role_id,college_id,dept_id,delete_flg,create_user,
-		create_time,update_user,update_time)
-		values
-		(#{student.stu_id},#{student.stu_name},#{student.sex},#{student.password},#{student.class_id},
-		#{student.pro_id},#{student.qq},#{student.mobile},#{student.role_id},#{student.college_id},
-		#{student.dept_id},0,#{create_user},#{create_time},#{update_user},#{update_time})
-	</insert>
-
-	<!-- 查询教师ID -->
-	<select id="findTeacherId" resultType="java.lang.String">
+	<!-- 查询User的信息 -->
+	<select id="findAllUser" resultMap="user">
+		select * from ceptp_user;
+	</select>
+	<!-- 通过id查询某角色的信息 -->
+	<select id="findUserById" parameterType="java.lang.String"
+		resultMap="user">
+		select * from ceptp_user where user_id = #{user_id} and
+		delete_flg = 0;
+	</select>
+	<!-- 查询UserID -->
+	<select id="findUserId" resultType="java.lang.String">
 		select staff_id from
-		ceptp_staff;
+		ceptp_user;
 	</select>
-
-	<!-- 根据教师id修改is_firstLogin -->
-	<update id="modifyIs_firstLogin" parameterType="java.util.HashMap">
-		update
-		ceptp_staff set is_firstLogin = #{is_firstLogin}
-		where staff_id = #{staff_id}
-	</update>
-	<!-- 根据条件查询教师信息 -->
-	<select id="findUserByCondition" parameterType="java.lang.String"
-		resultType="cn.edu.tit.user.bean.Teacher">
-		<!-- select * from ceptp_staff <where> <if test="staff_id !=null and staff_id 
-			!=''"> staff_id = #{staff_id} </if> <if test="staff_name !=null and staff_name 
-			!=''"> and staff_name = #{staff_name}</if> </where> -->
-		<!-- where staff_id = #{staff_id} and staff_name = #{staff_name}; -->
-		select * from ceptp_staff s,ceptp_role_user u
-		where
-		role_id = #{role_id}
-		AND
-		s.staff_id != u.user_id and s.staff_id Like CONCAT(#{staff_id}, '%')
-	</select>
-	<!-- 按ID查询ceptp_role_user -->
-	<select id="findrole_id" parameterType="java.lang.String"
-		resultType="java.lang.String">
-		select role_id from ceptp_role_user where user_id =
-		#{user_id};
-	</select>
-
 </mapper>
