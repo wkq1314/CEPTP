@@ -5,11 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.poi.ss.usermodel.Workbook;
-
-
-
 import cn.edu.tit.user.bean.User;
-import cn.edu.tit.user.bean.Student;
+
 
 
 public interface IUserService {
@@ -21,36 +18,27 @@ public interface IUserService {
 	 * 密码
 	 * @return
 	 */
-	public User userSignIn(String username,String password);
+	public Map<String, Object> userSignIn(String user_id,String password);
 	/**
 	 * 用户注册
 	 * @param user
 	 * 用户信息
 	 */
-	public void userSignUP(User user);
-	
-//	/**
-//	 * 导入教师信息
-//	 * @param wb
-//	 * @param fileName
-//	 * @return
-//	 * @throws Exception
-//	 */
-//	public List<Integer> importInfo(Workbook wb, String fileName) throws Exception;
+	public Boolean userSignUP(User user);
 	/**
 	 * 导入用户信息
 	 * @param wb
-	 * @param sfileName
+	 * @param fileName
 	 * @return
 	 * @throws Exception
 	 */
-	public List<Integer> importInfoStudent(Workbook wb, String sfileName)throws Exception;
+	public List<Integer> importInfo(Workbook wb, String fileName)throws Exception;
 	/**
-	 * 根据学生id查询用户
-	 * @param stu_id
+	 * 根据id查询用户
+	 * @param suer_id
 	 * @return
 	 */
-	public User findStuById(String user_id);
+	public User findUserById(String user_id);
 	/**
 	 * 查询用户全部信息（不包含密码）
 	 */
@@ -60,25 +48,9 @@ public interface IUserService {
 	 * @return
 	 */
 	public File exportUser();
-
-//	/**
-//	 * 查询学生全部信息（不包含密码）
-//	 */
-//	public File exportStudent();
-	
 	/**
 	 * 获取所有的用户id
 	 * @return
 	 */
 	public List<String> findUserId();
-	
-	/**
-	 * 根据条件查询用户
-	 * @param staff_id
-	 * @param staff_name
-	 * @return
-	 * 教师列表
-	 */
-	public List<User> findUserByCondition(String staff_id, String staff_name);
-
 }
