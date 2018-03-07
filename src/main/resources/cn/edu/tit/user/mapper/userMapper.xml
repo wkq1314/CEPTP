@@ -3,7 +3,7 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="cn.edu.tit.user.Idao.IUserDao">
-	<resultMap type="cn.edu.tit.user.bean。User" id="user">
+	 <!-- <resultMap type="cn.edu.tit.user.bean。User" id="user">
 		<id column="user_id" property="user_id" />
 		<result column="user_name" property="user_name" />
 		<result column="sex" property="sex" />
@@ -23,7 +23,7 @@
 		<result column="create_time" property="create_time" />
 		<result column="update_user" property="update_user" />
 		<result column="update_time" property="update_time" />
-	</resultMap>
+	</resultMap> -->
 	<!-- 导入用户信息 -->
 	<insert id="importInfo" parameterType="java.util.HashMap">
 		insert into ceptp_user
@@ -41,12 +41,12 @@
 		#{create_user},#{create_time},#{update_user},#{update_time})
 	</insert>
 	<!-- 查询User的信息 -->
-	<select id="findAllUser" resultMap="user">
+	<select id="findAllUser" resultType="cn.edu.tit.user.bean.User">
 		select * from ceptp_user;
 	</select>
 	<!-- 通过id查询某角色的信息 -->
 	<select id="findUserById" parameterType="java.lang.String"
-		resultMap="user">
+		resultType="cn.edu.tit.user.bean.User">
 		select * from ceptp_user where user_id = #{user_id} and
 		delete_flg = 0;
 	</select>

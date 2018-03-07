@@ -16,7 +16,7 @@ public interface IUserDao {
 
 	/**
 	 * 超级管理员添加用户
-	 * @param teacher
+	 * @param user
 	 * @param create_user
 	 * @param create_time
 	 * @param update_user

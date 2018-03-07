@@ -27,7 +27,7 @@ public class OutUser {
 	}
 	
 	public OutUser(String user_id, String user_name, String class_name, String professional_title, String degree,
-			String detail, byte[] face, String pro, String qq, String mobile, String college, String sec_college,
+			String detail, String pro, String qq, String mobile, String college, String sec_college,
 			String create_user, String create_time, String update_user, String update_time) {
 		super();
 		this.user_id = user_id;
@@ -36,7 +36,7 @@ public class OutUser {
 		this.professional_title = professional_title;
 		this.degree = degree;
 		this.detail = detail;
-		this.face = face;
+		//this.face = face;
 		this.pro = pro;
 		this.qq = qq;
 		this.mobile = mobile;

@@ -1,4 +1,4 @@
-package cn.edu.tit.user.controller;
+/*package cn.edu.tit.user.controller;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -38,9 +38,9 @@ public class ImportXlsController {
 			HttpServletResponse response) throws FileNotFoundException, IOException, ServletException {
 
 		// 判断文件是否为空
-		/*
+		
 		 * if (file == null) {System.out.println("文件为空");}
-		 */
+		 
 		// 获取文件名
 		String fileName = file.getOriginalFilename();// 教师文件名
 		// 进一步判断文件是否为空（即判断其大小是否为0或其名称是否为null）
@@ -59,12 +59,12 @@ public class ImportXlsController {
 		return mav;
 	}
 
-	/**
+	*//**
 	 * 信息导入调用的方法 调用工具类
 	 * 
 	 * @param fileName
 	 * @param file
-	 */
+	 *//*
 	public void infouser(String fileName, MultipartFile file) {
 		String errorInfo = null;
 		// 批量导入。参数：文件,文件名。
@@ -90,13 +90,13 @@ public class ImportXlsController {
 		System.out.println(errorInfo);
 	}
 
-	/**
+	*//**
 	 * 导出
 	 * 
 	 * @param request
 	 * @return
 	 * @throws IOException
-	 */
+	 *//*
 	@RequestMapping(value = "/export", method = RequestMethod.GET)
 	public ResponseEntity<byte[]> exportTeacher(HttpServletRequest request) throws IOException {
 		File file = userService.exportUser();
@@ -110,3 +110,4 @@ public class ImportXlsController {
 		return new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(file), headers, HttpStatus.CREATED);
 	}
 }
+*/

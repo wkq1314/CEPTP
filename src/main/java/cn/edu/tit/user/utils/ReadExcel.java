@@ -50,10 +50,11 @@ public class ReadExcel {
 		return true;
 	}
 
-	public Workbook getWorkbook(String fileName, MultipartFile Mfile) {
+	//public Workbook getWorkbook(String fileName, MultipartFile Mfile) 
+	public Workbook getWorkbook(String fileName, File Mfile){
 		Workbook wb = null;
 		// 把spring文件上传的MultipartFile转换成CommonsMultipartFile类型
-		CommonsMultipartFile cf = (CommonsMultipartFile) Mfile; // 获取本地存储路径
+		//CommonsMultipartFile cf = (CommonsMultipartFile) Mfile; // 获取本地存储路径
 		File file = new File("D:\\fileupload");
 		// 创建一个目录 （它的路径名由当前 File 对象指定，包括任一必须的父路径。）
 		if (!file.exists())
@@ -61,11 +62,11 @@ public class ReadExcel {
 		// 新建一个文件
 		File file1 = new File("D:\\fileupload\\" + new Date().getTime() + ".xls");
 		// 将上传的文件写入新建的文件中
-		try {
+		/*try {
 			cf.getFileItem().write(file1);
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
+		}*/
 		// 初始化输入流
 		InputStream is = null;
 		try {
@@ -79,7 +80,7 @@ public class ReadExcel {
 				isExcel2003 = false;
 			}
 			// 根据新建的文件实例化输入流
-			is = new FileInputStream(file1);
+			is = new FileInputStream(Mfile);
 			// 根据excel里面的内容读取信息
 			wb = getWorkbook(is, isExcel2003);
 			is.close();

@@ -2,8 +2,8 @@ package cn.edu.tit.user.bean;
 
 import java.util.Arrays;
 
-import org.springframework.stereotype.Repository;
-@Repository
+import org.springframework.stereotype.Component;
+@Component
 public class User {
 	private String user_id;// 学号、工号
 	private String user_name;// 姓名

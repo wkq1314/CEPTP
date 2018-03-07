@@ -24,6 +24,7 @@ import cn.edu.tit.user.bean.OutUser;
 import cn.edu.tit.user.bean.User;
 import cn.edu.tit.user.utils.ExcelUtils;
 import cn.edu.tit.user.utils.RequestUtils;
+import cn.edu.tit.user.utils.getByte;
 import cn.edu.tit.util.RoleUtil;
 
 @Service
@@ -90,7 +91,6 @@ public class UserServiceImp implements IUserService {
 			totalCells = sheet.getRow(0).getPhysicalNumberOfCells();
 		}
 		List<User> userList = new ArrayList<User>();
-
 		// 循环Excel行数,从第二行开始。标题不入库
 		for (Row row : sheet) {
 			int rowNum = row.getRowNum();
@@ -132,36 +132,43 @@ public class UserServiceImp implements IUserService {
 			String professional_title = row.getCell(5).getStringCellValue();
 			// 获取cell(6)值，赋值给degree，空报错，跳过此条数据，进行下一条数据
 			String degree = row.getCell(6).getStringCellValue();
-			// 获取cell(7)值，赋值给dept_id，空报错，跳过此条数据，进行下一条数据
+			// 获取cell(7)值，赋值给detail，空报错，跳过此条数据，进行下一条数据
 			String detail = row.getCell(7).getStringCellValue();
-			// 获取cell(8)值，赋值给pro_id，空报错，跳过此条数据，进行下一条数据
-			byte[] face = { 1, 2 };
-			if ("".equals(row.getCell(8).toString())) {
+			
+			String path = "D:/3.jpg";
+			File file = new File(path);
+			byte[] face = getByte.getByte(file);		
+			/*if ("".equals(row.getCell(8).toString())) {
 				face = null;
 			}
 			if (row.getCell(8) != null && !("".equals(row.getCell(8).toString()))) {
 				row.getCell(8).setCellType(Cell.CELL_TYPE_BLANK);
-				//face = row.getCell(8).getArrayFormulaRange();
-				
+				// face = row.getCell(8).getArrayFormulaRange();
+
+			}*/
+
+			// 获取cell(9)值，赋值给pro
+			String pro = null;
+			if (row.getCell(8) != null && !("".equals(row.getCell(8).toString()))) {
+				row.getCell(8).setCellType(Cell.CELL_TYPE_STRING);
+				pro = row.getCell(8).getStringCellValue();
 			}
-			// 获取cell(9)值，赋值给email
-			String pro = row.getCell(9).getStringCellValue();
 			// 获取cell(10)值，赋值给qq
-			String qq = row.getCell(10).getStringCellValue();
+			String qq = row.getCell(9).getStringCellValue();
 			// 获取cell(11)值，赋值给mobile
 			String mobile = null;
-			if (row.getCell(11) != null && !("".equals(row.getCell(11).toString()))) {
-				row.getCell(11).setCellType(Cell.CELL_TYPE_STRING);
-				mobile = row.getCell(11).getStringCellValue();
+			if (row.getCell(10) != null && !("".equals(row.getCell(10).toString()))) {
+				row.getCell(10).setCellType(Cell.CELL_TYPE_STRING);
+				mobile = row.getCell(10).getStringCellValue();
 			}
 			// 获取cell(12)的值，赋给college
 			String college = null;
-			if (row.getCell(12) != null && !("".equals(row.getCell(12).toString()))) {
-				row.getCell(12).setCellType(Cell.CELL_TYPE_STRING);
-				college = row.getCell(12).getStringCellValue();
+			if (row.getCell(11) != null && !("".equals(row.getCell(11).toString()))) {
+				row.getCell(11).setCellType(Cell.CELL_TYPE_STRING);
+				college = row.getCell(11).getStringCellValue();
 			}
 			// 获取cell(13)的值，赋给college
-			String sec_college = row.getCell(13).getStringCellValue();
+			String sec_college = row.getCell(12).getStringCellValue();
 
 			// 创建user对象，对其赋值
 			User user = new User(user_id, user_name, sex, password, class_name, professional_title, degree, detail,
@@ -211,9 +218,9 @@ public class UserServiceImp implements IUserService {
 				OutUser de;
 				User et = userList.get(i);
 				de = new OutUser(et.getUser_id(), et.getUser_name(), et.getClass_name(), et.getProfessional_title(),
-						et.getDegree(), et.getDetail(), et.getFace(), et.getPro(), et.getQq(), et.getMobile(),
-						et.getCollege(), et.getSec_college(), et.getCreate_user(), et.getCreate_time(),
-						et.getUpdate_user(), et.getUpdate_time());
+						et.getDegree(), et.getDetail(), et.getPro(), et.getQq(), et.getMobile(), et.getCollege(),
+						et.getSec_college(), et.getCreate_user(), et.getCreate_time(), et.getUpdate_user(),
+						et.getUpdate_time());
 				boolean sex = userList.get(i).getSex();
 				if (sex) {
 
@@ -234,8 +241,8 @@ public class UserServiceImp implements IUserService {
 			File file = ExcelUtils.exportExcel(userlist,
 					RequestUtils.getRequest().getSession().getServletContext().getRealPath(File.separator)
 							+ UUID.randomUUID().toString() + ".xls",
-					new String[] { "学号、工号", "姓名", "性别", "班级", "职称", "学位", "简介", "头像", "专业", "QQ号", "移动电话", "所在学院",
-							"二级学院（系）", "是否删除", "创建者", "创建时间", "更新者", "更新时间" },
+					new String[] { "学号、工号", "姓名", "性别", "班级", "职称", "学位", "简介", "专业", "QQ号", "移动电话", "所在学院", "二级学院（系）",
+							"是否删除", "创建者", "创建时间", "更新者", "更新时间" },
 					"updateTime");
 			return file;
 		} catch (IOException e) {
