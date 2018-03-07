@@ -4,7 +4,7 @@ import java.util.List;
 
 public class Task {
 	//任务题目
-	private String task_id; //任务id
+	private String task_id; //任务id (课程id_时间戳)
 	private String task_name; //任务名
 	private String course_id; //所属课程id
 	private String task_details; //发布任务描述
@@ -18,7 +18,7 @@ public class Task {
 	private String grade; //成绩
 	
 	private Boolean delete_flg;//是否删除
-	private String create_user;//创建者
+	private String create_user;//任务创建者
 	private String create_time;//创建时间
 	private String update_user;//更新者
 	private String update_time;//更新时间
@@ -123,7 +123,26 @@ public class Task {
 	public void setUpdate_time(String update_time) {
 		this.update_time = update_time;
 	}
-	
+	public Task(String task_id, String task_name, String course_id, String task_details, 
+			String evaluate_kind, String evaluate_id, String create_user) {
+		super();
+		this.task_id = task_id;
+		this.task_name = task_name;
+		this.course_id = course_id;
+		this.task_details = task_details;
+		this.evaluate_kind = evaluate_kind;
+		this.evaluate_id = evaluate_id;
+		this.create_user = create_user;
+	}
+	public Task(){}
+	public Task(String task_id,String uploader, String uploadTask_details,
+			String create_user) {
+		super();
+		this.task_id = task_id;
+		this.uploader = uploader;
+		this.uploadTask_details = uploadTask_details;
+		this.create_user = create_user;
+	};
 	
 	
 }

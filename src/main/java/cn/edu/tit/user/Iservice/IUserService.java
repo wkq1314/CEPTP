@@ -10,6 +10,13 @@ import cn.edu.tit.user.bean.User;
 
 
 public interface IUserService {
+	
+	/**
+	 * 用户注册
+	 * @param user
+	 */
+	public void signUp(User user);
+	
 	/**
 	 * 用户登录
 	 * @param username

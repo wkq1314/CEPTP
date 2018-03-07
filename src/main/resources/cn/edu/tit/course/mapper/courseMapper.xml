@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.edu.tit.course.Idao.ICourseDao">
+	<!-- Role_user结果集映射 -->
+	<resultMap type="cn.edu.tit.course.bean.Course" id="course">
+		<id column="course_id" property="course_id" />
+		<result column="course_name" property="course_name" />
+		<result column="course_flag" property="course_flag" />
+		<result column="course_notes" property="course_notes" />
+		<result column="course_img" property="course_img" />
+		<result column="college" property="college" />
+		<result column="course_lable" property="course_lable" />
+		<result column="application_pro" property="application_pro" />
+		<result column="create_user" property="create_user" />
+		<result column="create_time" property="create_time" />
+		<result column="update_user" property="update_user" />
+		<result column="update_time" property="update_time" />
+	</resultMap>
+	
+	<resultMap type="cn.edu.tit.course.bean.Course" id="cuserAndcode">
+		<id column="course_id" property="course_id" />
+		<result column="creater" property="create_user" />
+		<result column="invitation_code" property="invitation_code" />
+	</resultMap>
+	
+	
+	
+	<!-- 添加课程 -->
+	<insert id="addCourse" parameterType="cn.edu.tit.course.bean.Course">
+		insert into ceptp_course(course_id,course_name,course_flag,course_notes,course_img,college,
+		course_label,application_pro,invitation_code,delete_flg,creater,create_time,updater,update_time)
+		 values (#{course_id},#{course_name},1,#{course_notes},#{course_img},#{college},
+		#{course_label},#{application_pro},#{invitation_code},0,#{create_user},now(),#{create_user},now());
+	</insert>
+	
+	<!-- 获取邀请码 -->
+	<select id="getverify" parameterType="java.lang.String" resultMap="cuserAndcode">
+		select creater,invitation_code from ceptp_course where 	course_id = #{course_id};
+	</select>
+	
+	<!-- 加入课程 -->
+	<insert id="joinCourse" parameterType="java.util.HashMap">
+		insert into ceptp_cv values (#{course_id},#{user_id},0,#{create_user},now(),#{create_user},now());
+	</insert>
+	
+	<!-- 发布任务 -->
+	<insert id="addTask" parameterType="cn.edu.tit.course.bean.Task">
+		insert into ceptp_task values (#{task_id},#{task_name},#{course_id},#{task_details},
+		#{evaluate_id},#{evaluate_kind},0,#{create_user},now(),#{create_user},now());
+	</insert>
+	
+	<!-- 添加附件 -->
+	<insert id="addAcc" parameterType="cn.edu.tit.course.bean.Accessory">
+		insert into ceptp_accessory values (#{accessory_name},#{task_id},#{accessory_path},#{accessory_kind},0,#{create_user},now(),#{update_user},now());
+	</insert>
+	
+	<!-- 获取任务创建者id -->
+	<select id="getTaskCreater" parameterType="java.lang.String" resultType="java.lang.String">
+		select creater from ceptp_task where task_id = #{task_id};
+	</select>
+	
+	<!-- 将提交的任务存放到数据库 -->
+	<insert id="uploadTask" parameterType="cn.edu.tit.course.bean.Task">
+		insert into ceptp_upload_task values (#{task_id},#{uploader},#{uploadTask_details},#{grade},0,#{create_user},now(),#{create_user},now());
+	</insert>
+	
+	<!-- 给任务相应的评分 -->
+	<update id="evaluateTask" parameterType="java.util.HashMap">
+		update ceptp_upload_task set grade = #{grade}  where task_id = #{task_id};
+	</update>
+	
+	<!-- 查询课程 -->
+	<select id="findCouByName" parameterType="java.lang.String" resultMap="course">
+		select * from ceptp_course where course_name like CONCAT('%',#{course_name}, '%');
+	</select>
+	
+	<select id="findCouByLabel" parameterType="java.lang.String" resultMap="course">
+		select * from ceptp_course where course_label like CONCAT('%',#{course_label}, '%');
+	</select>
+	
+	<select id="findCouByAppro" parameterType="java.lang.String" resultMap="course">
+		select * from ceptp_course where application_pro like CONCAT('%',#{application_pro}, '%');
+	</select>
+</mapper>
